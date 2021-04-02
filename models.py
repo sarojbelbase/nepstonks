@@ -14,19 +14,19 @@ BaseModel = declarative_base()
 class Stock(BaseModel):
     __tablename__ = 'stock'
     id = Column(Integer(), primary_key=True)
-    share_id = Column(Integer())
-    investment_id = Column(Integer())
-    start_date = Column(DateTime())
-    end_date = Column(DateTime())
-    nep_start_date = Column(DateTime())
-    nep_end_date = Column(DateTime())
-    share_type = Column(String())
     company_name = Column(String())
-    stock_symbol = Column(String())
+    end_date = Column(DateTime())
+    investment_id = Column(Integer())
     issued_by = Column(String())
-    units = Column(String())
+    nep_end_date = Column(DateTime())
+    nep_start_date = Column(DateTime())
     pdf = Column(String())
     ratio = Column(String())
+    share_id = Column(Integer())
+    share_type = Column(String())
+    start_date = Column(DateTime())
+    stock_symbol = Column(String())
+    units = Column(String())
 
 
 # To create database with given model if it doesn't exists
