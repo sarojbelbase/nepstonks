@@ -8,4 +8,4 @@ load_dotenv(find_dotenv())
 CHANNEL = environ['CHANNEL']
 BOT_TOKEN = environ['BOT_TOKEN']
 BOT_USERNAME = environ['BOT_USERNAME']
-DATABASE_URI = current_dir / 'stocks.db'
+DATABASE_URI = current_dir / 'stock.db'
