@@ -28,5 +28,7 @@ class Stock(BaseModel):
     pdf = Column(String())
     ratio = Column(String())
 
+
 # To create database with given model if it doesn't exists
-# BaseModel.metadata.create_all(engine)
+if not path.isfile(DATABASE_URI):
+    BaseModel.metadata.create_all(engine)
