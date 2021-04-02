@@ -17,7 +17,6 @@ BaseModel = declarative_base()
 class Stock(BaseModel):
     __tablename__ = 'stock'
     id = Column(Integer(), primary_key=True)
-    category_id = Column(Integer(), nullable=False)
     company_name = Column(String(), nullable=False)
     end_date = Column(Date(), nullable=False)
     investment_id = Column(Integer(), nullable=False)
@@ -26,10 +25,10 @@ class Stock(BaseModel):
     nep_start_date = Column(Date(), nullable=False)
     pdf = Column(String(), nullable=True)
     ratio = Column(String(), nullable=True)
-    share_id = Column(Integer(), nullable=False)
-    share_type = Column(String(), nullable=False)
     start_date = Column(Date(), nullable=False)
+    stock_id = Column(Integer(), nullable=False)
     stock_symbol = Column(String(), nullable=False)
+    stock_type = Column(String(), nullable=False)
     units = Column(String(), nullable=False)
     stock_added_at = Column(DateTime(), default=datetime.utcnow)
 
