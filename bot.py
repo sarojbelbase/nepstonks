@@ -1,5 +1,6 @@
-from .const import BOT_TOKEN, CHANNEL
 import requests
+
+from const import BOT_TOKEN, CHANNEL
 
 the_url = f"https://api.telegram.org/bot{BOT_TOKEN}/"
 

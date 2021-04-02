@@ -1,5 +1,6 @@
 from os import environ
 from pathlib import Path
+
 from dotenv import find_dotenv, load_dotenv
 
 current_dir = Path(__file__).parent.resolve()

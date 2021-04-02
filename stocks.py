@@ -3,7 +3,7 @@ from typing import Dict, List
 import requests
 from dateutil import parser
 
-from const import API_URL, REFERER, ORIGIN
+from const import API_URL, ORIGIN, REFERER
 
 
 def fetch_latest_stocks(category_id: int) -> List[Dict]:
