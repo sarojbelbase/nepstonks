@@ -17,6 +17,7 @@ BaseModel = declarative_base()
 class Stock(BaseModel):
     __tablename__ = 'stock'
     id = Column(Integer(), primary_key=True)
+    category_id = Column(Integer(), nullable=False)
     company_name = Column(String(), nullable=False)
     end_date = Column(Date(), nullable=False)
     investment_id = Column(Integer(), nullable=False)
