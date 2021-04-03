@@ -29,7 +29,7 @@ class Stock(BaseModel):
     stock_id = Column(Integer(), nullable=False)
     stock_symbol = Column(String(), nullable=False)
     stock_type = Column(String(), nullable=False)
-    units = Column(String(), nullable=False)
+    units = Column(String(), nullable=True)
     stock_added_at = Column(DateTime(), default=datetime.utcnow)
 
 
