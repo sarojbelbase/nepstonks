@@ -8,8 +8,8 @@ def add_stock() -> int:
         added_stocks_count: int = 0
         scraped_stocks = latest_stocks()
         fetched_stocks: int = len(scraped_stocks)
-    except Exception as error:
-        raise error('Problem in API.')
+    except Exception:
+        raise ConnectionError('Sorry, we couldn\'t connect to the API.')
 
     for the_stock in scraped_stocks:
         the_stock_id = Stock.query.filter(
@@ -37,3 +37,6 @@ def add_stock() -> int:
             session.add(this_stock)
     session.commit()
     return added_stocks_count
+
+
+print(add_stock())
