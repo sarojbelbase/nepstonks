@@ -1,7 +1,7 @@
 from typing import Dict, List
 
 import requests
-from dateutil import parser
+from dateutil.parser import parse
 
 from const import API_URL, ORIGIN, REFERER
 
@@ -51,14 +51,14 @@ def fetch_latest_stocks(category_id: int) -> List[Dict]:
     for stock in raw_stocks:
         data = {
             'company_name': stock['CompanyName'],
-            'end_date': parser.parse(stock['EndDateString']),
+            'end_date': parse(stock['EndDateString']),
             'investment_id': stock['InvestmentID'],
             'issued_by': stock['IssueManager'],
-            'nep_end_date': parser.parse(stock['EndDateNP']),
-            'nep_start_date': parser.parse(stock['StartDateNP']),
+            'nep_end_date': parse(stock['EndDateNP']),
+            'nep_start_date': parse(stock['StartDateNP']),
             'pdf': stock['DescriptionPdf'],
             'ratio': stock['Ratio'],
-            'start_date': parser.parse(stock['StartDateString']),
+            'start_date': parse(stock['StartDateString']),
             'stock_id': stock['CategoryID'],
             'stock_symbol': stock['StockSymbol'],
             'stock_type': stock['CategoryName'],

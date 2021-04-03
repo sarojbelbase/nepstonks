@@ -7,6 +7,7 @@ current_dir = Path(__file__).parent.resolve()
 
 load_dotenv(find_dotenv())
 ORIGIN = environ['ORIGIN']
+CATEGORIES = [2, 3, 5, 7, 8]
 API_URL = environ['API_URL']
 REFERER = environ['REFERER']
 CHANNEL = environ['CHANNEL']
