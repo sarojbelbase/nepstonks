@@ -1,11 +1,21 @@
-from datetime import datetime
+from datetime import date
 from typing import Dict, List
 
 import requests
 from dateutil.parser import parse
-from nepali_datetime import date
+from nepali_datetime import date as miti
 
 from const import API_URL, ORIGIN, REFERER
+
+
+def get_units(sharetype: str) -> str:
+    index = sharetype.find(':')
+    if index != -1:
+        return sharetype[index+1:].strip()
+
+
+def to_nepali_date(givendate: date):
+    return miti.from_datetime_date(parse(givendate).date())
 
 
 def fetch_latest_stocks(category_id: int) -> List[Dict]:
@@ -68,13 +78,3 @@ def fetch_latest_stocks(category_id: int) -> List[Dict]:
         }
         stocks.append(data)
     return stocks
-
-
-def get_units(sharetype: str) -> str:
-    index = sharetype.find(':')
-    if index != -1:
-        return sharetype[index+1:].strip()
-
-
-def to_nepali_date(givendate):
-    return date.from_datetime_date(parse(givendate).date())
