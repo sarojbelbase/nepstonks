@@ -1,15 +1,16 @@
 from datetime import datetime
 from os import path
 
-from sqlalchemy import Column, Date, DateTime, Integer, String, create_engine
+from sqlalchemy import (Boolean, Column, Date, DateTime, Integer, String,
+                        create_engine)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
 from const import DATABASE_URI
 
 sqlite_db = 'sqlite:///' + path.join(DATABASE_URI)
-engine = create_engine(sqlite_db, echo=True)
-# connect_args = {'check_same_thread': False}
+connect_args = {'check_same_thread': False}
+engine = create_engine(sqlite_db, echo=True, connect_args=connect_args)
 session = Session(bind=engine)
 BaseModel = declarative_base()
 
@@ -30,7 +31,11 @@ class Stock(BaseModel):
     stock_symbol = Column(String(), nullable=False)
     stock_type = Column(String(), nullable=False)
     units = Column(String(), nullable=True)
+    is_published = Column(Boolean(), default=False)
     stock_added_at = Column(DateTime(), default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'{self.company_name}({self.stock_type})'
 
 
 # To create database with given model if it doesn't exists
