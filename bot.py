@@ -1,8 +1,6 @@
 import requests
 
-from const import BOT_TOKEN, CHANNEL
-
-the_url = f"https://api.telegram.org/bot{BOT_TOKEN}/"
+from const import CHANNEL, TELEGRAM_URL
 
 
 def handle_response(the_url, payload):
@@ -15,18 +13,10 @@ def handle_response(the_url, payload):
 
 
 def publish_stock(content):
-    message_url = the_url + 'sendMessage'
+    message_url = TELEGRAM_URL + 'sendMessage'
     payload = {
         'chat_id': CHANNEL,
         'text': content,
         'parse_mode': 'HTML'
     }
     return handle_response(message_url, payload)
-
-
-def set_webhook(base_url):
-    webhook_url = the_url + 'setWebhook'
-    payload = {
-        'url': base_url + BOT_TOKEN
-    }
-    return handle_response(webhook_url, payload)

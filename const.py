@@ -12,5 +12,6 @@ API_URL = environ['API_URL']
 REFERER = environ['REFERER']
 CHANNEL = environ['CHANNEL']
 BOT_TOKEN = environ['BOT_TOKEN']
-BOT_USERNAME = environ['BOT_USERNAME']
 DATABASE_URI = current_dir / 'stock.db'
+BOT_USERNAME = environ['BOT_USERNAME']
+TELEGRAM_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/"
