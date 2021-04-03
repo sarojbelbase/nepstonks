@@ -1,7 +1,9 @@
+from datetime import datetime
 from typing import Dict, List
 
 import requests
 from dateutil.parser import parse
+from nepali_datetime import date
 
 from const import API_URL, ORIGIN, REFERER
 
@@ -51,18 +53,28 @@ def fetch_latest_stocks(category_id: int) -> List[Dict]:
     for stock in raw_stocks:
         data = {
             'company_name': stock['CompanyName'],
-            'end_date': parse(stock['EndDateString']),
+            'end_date': parse(stock['EndDateString']).date(),
             'investment_id': stock['InvestmentID'],
             'issued_by': stock['IssueManager'],
-            'nep_end_date': parse(stock['EndDateNP']),
-            'nep_start_date': parse(stock['StartDateNP']),
+            'nep_end_date': to_nepali_date(stock['EndDateString']),
+            'nep_start_date': to_nepali_date(stock['StartDateString']),
             'pdf': stock['DescriptionPdf'],
             'ratio': stock['Ratio'],
-            'start_date': parse(stock['StartDateString']),
+            'start_date': parse(stock['StartDateString']).date(),
             'stock_id': stock['CategoryID'],
             'stock_symbol': stock['StockSymbol'],
             'stock_type': stock['CategoryName'],
-            'units': stock['ShareType'].split(":")[1],
+            'units': get_units(stock['ShareType']),
         }
         stocks.append(data)
     return stocks
+
+
+def get_units(sharetype: str) -> str:
+    index = sharetype.find(':')
+    if index != -1:
+        return sharetype[index+1:].strip()
+
+
+def to_nepali_date(givendate):
+    return date.from_datetime_date(parse(givendate).date())
