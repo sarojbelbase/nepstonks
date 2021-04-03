@@ -10,7 +10,7 @@ def add_stock() -> int:
 
     try:
         added_stocks_count: int = 0
-        scraped_stocks = latest_stocks()
+        scraped_stocks: list = latest_stocks()
         fetched_stocks: int = len(scraped_stocks)
     except Exception:
         raise ConnectionError('Sorry, we couldn\'t connect to the API.')
