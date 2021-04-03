@@ -5,12 +5,13 @@ import requests
 from dateutil.parser import parse
 from nepali_datetime import date as miti
 
-from const import API_URL, ORIGIN, REFERER
+from const import API_URL, CATEGORIES, ORIGIN, REFERER
 
 
 def get_units(sharetype: str) -> str:
     index = sharetype.find(':')
     if index != -1:
+        # get only kittas/units and slice share type
         return sharetype[index+1:].strip()
 
 
@@ -18,16 +19,16 @@ def to_nepali_date(givendate: date):
     return miti.from_datetime_date(parse(givendate).date())
 
 
-def fetch_latest_stocks(category_id: int) -> List[Dict]:
-    """Fetches latest stocks 20 stocks with given category
+def scraped_stocks(category_id: int):
+    """gets stocks in raw form with the given category_id
 
     Args:
         category_id (int): the category to be fetched from the available categories
-                                        IPO -> category_id : 2
-                                        FPO -> category_id : 3
-                                        Right Share -> category_id : 5
-                                        Mutual Fund -> category_id : 7
-                                        Debenture -> category_id : 8
+                                    category_id : 2 -> IPO 
+                                    category_id : 3 -> FPO
+                                    category_id : 5 -> Right Share
+                                    category_id : 7 -> Mutual Fund
+                                    category_id : 8 -> Debenture
 
     Returns:
         List[Dict]: returns the lastes ipos of the given category
@@ -35,7 +36,7 @@ def fetch_latest_stocks(category_id: int) -> List[Dict]:
 
     json = {
         "offset": "1",
-        "limit": "20",
+        "limit": "10",
         "categoryID": category_id,
         "portalID": "1",
         "cultureCode": "en-US",
@@ -58,23 +59,27 @@ def fetch_latest_stocks(category_id: int) -> List[Dict]:
     }
 
     response = requests.post(API_URL, headers=headers, json=json)
-    raw_stocks = response.json()['d']
+    return response.json()['d']
+
+
+def latest_stocks() -> List[Dict]:
     stocks = []
-    for stock in raw_stocks:
-        data = {
-            'company_name': stock['CompanyName'],
-            'end_date': parse(stock['EndDateString']).date(),
-            'investment_id': stock['InvestmentID'],
-            'issued_by': stock['IssueManager'],
-            'nep_end_date': to_nepali_date(stock['EndDateString']),
-            'nep_start_date': to_nepali_date(stock['StartDateString']),
-            'pdf': stock['DescriptionPdf'],
-            'ratio': stock['Ratio'],
-            'start_date': parse(stock['StartDateString']).date(),
-            'stock_id': stock['CategoryID'],
-            'stock_symbol': stock['StockSymbol'],
-            'stock_type': stock['CategoryName'],
-            'units': get_units(stock['ShareType']),
-        }
-        stocks.append(data)
+    for category_id in CATEGORIES:
+        for stock in scraped_stocks(category_id):
+            data = {
+                'company_name': stock['CompanyName'],
+                'end_date': parse(stock['EndDateString']).date(),
+                'investment_id': stock['InvestmentID'],
+                'issued_by': stock['IssueManager'],
+                'nep_end_date': to_nepali_date(stock['EndDateString']),
+                'nep_start_date': to_nepali_date(stock['StartDateString']),
+                'pdf': stock['DescriptionPdf'],
+                'ratio': stock['Ratio'],
+                'start_date': parse(stock['StartDateString']).date(),
+                'stock_id': stock['CategoryID'],
+                'stock_symbol': stock['StockSymbol'],
+                'stock_type': stock['CategoryName'],
+                'units': get_units(stock['ShareType']),
+            }
+            stocks.append(data)
     return stocks
