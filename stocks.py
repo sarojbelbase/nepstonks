@@ -3,7 +3,7 @@ from typing import Dict, List
 
 import requests
 from dateutil.parser import parse
-from nepali_datetime import date as miti
+from nepali_datetime import date as nepdate
 
 from const import API_URL, CATEGORIES, ORIGIN, REFERER
 
@@ -15,8 +15,10 @@ def get_units(sharetype: str) -> str:
         return sharetype[index+1:].strip()
 
 
-def to_nepali_date(givendate: date):
-    return miti.from_datetime_date(parse(givendate).date())
+def to_nepali_date(str_date: str):
+    miti = nepdate.from_datetime_date(parse(str_date).date())
+    din, mahina, barsha = miti.day, miti.month, miti.year
+    return date(barsha, mahina, din)
 
 
 def scraped_stocks(category_id: int):
