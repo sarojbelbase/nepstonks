@@ -27,8 +27,6 @@ def add_stock() -> int:
                     end_date=the_stock['end_date'],
                     investment_id=the_stock['investment_id'],
                     issued_by=the_stock['issued_by'],
-                    nep_end_date=the_stock['nep_end_date'],
-                    nep_start_date=the_stock['nep_start_date'],
                     pdf=the_stock['pdf'],
                     ratio=the_stock['ratio'],
                     start_date=the_stock['start_date'],

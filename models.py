@@ -22,8 +22,6 @@ class Stock(BaseModel):
     end_date = Column(Date(), nullable=False)
     investment_id = Column(Integer(), nullable=False)
     issued_by = Column(String(), nullable=False)
-    nep_end_date = Column(Date(), nullable=False)
-    nep_start_date = Column(Date(), nullable=False)
     pdf = Column(String(), nullable=True)
     ratio = Column(String(), nullable=True)
     start_date = Column(Date(), nullable=False)

@@ -1,9 +1,7 @@
-from datetime import date
 from typing import Dict, List
 
 import requests
 from dateutil.parser import parse
-from nepali_datetime import date as nepdate
 
 from const import API_URL, CATEGORIES, ORIGIN, REFERER
 
@@ -13,12 +11,6 @@ def get_units(sharetype: str) -> str:
     if index != -1:
         # get only kittas/units and slice share type
         return sharetype[index+1:].strip()
-
-
-def to_nepali_date(str_date: str):
-    miti = nepdate.from_datetime_date(parse(str_date).date())
-    din, mahina, barsha = miti.day, miti.month, miti.year
-    return date(barsha, mahina, din)
 
 
 def scraped_stocks(category_id: int):
@@ -73,8 +65,6 @@ def latest_stocks() -> List[Dict]:
                 'end_date': parse(stock['EndDateString']).date(),
                 'investment_id': stock['InvestmentID'],
                 'issued_by': stock['IssueManager'],
-                'nep_end_date': to_nepali_date(stock['EndDateString']),
-                'nep_start_date': to_nepali_date(stock['StartDateString']),
                 'pdf': stock['DescriptionPdf'],
                 'ratio': stock['Ratio'],
                 'start_date': parse(stock['StartDateString']).date(),
