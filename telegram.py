@@ -40,7 +40,7 @@ def send_pdf(stock_detail: str):
 
 def parsed_content(stock: str) -> str:
     return f"""
-<strong><i>New {stock.stock_type} Alert!</i></strong>
+<strong><i>New Upcoming {stock.stock_type} Alert!</i></strong>
 {HORI_LINE}
 <strong>{stock.company_name}</strong>
 Issued by: <strong>{stock.issued_by}</strong>
