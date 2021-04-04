@@ -41,4 +41,10 @@ def add_stock() -> int:
     return added_stocks_count
 
 
-print(add_stock())
+def unsent_stocks():
+    return StockTable.filter(Stock.is_published == False).all()
+
+
+def mark_as_published(stock):
+    stock.is_published = True
+    session.add(stock)
