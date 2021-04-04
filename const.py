@@ -14,4 +14,5 @@ CHANNEL = environ['CHANNEL']
 BOT_TOKEN = environ['BOT_TOKEN']
 DATABASE_URI = current_dir / 'stock.db'
 BOT_USERNAME = environ['BOT_USERNAME']
+HORI_LINE = "-----------------------------------------------"
 TELEGRAM_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/"

@@ -1,8 +1,9 @@
-import requests
-
-from const import CHANNEL, TELEGRAM_URL
 from datetime import date
+
+import requests
 from nepali_datetime import date as nepdate
+
+from const import CHANNEL, HORI_LINE, TELEGRAM_URL
 
 
 def handle_response(the_url, payload):
@@ -28,16 +29,17 @@ def publish_stock(stock_detail: str):
 def parsed_content(stock: str) -> str:
     return f"""
 <strong><i>New {stock.stock_type} Alert!</i></strong>
-
+{HORI_LINE}
 <strong>{stock.company_name}</strong>
 Issued by: <strong>{stock.issued_by}</strong>
 Start Date: <strong>{parse_miti(stock.start_date)} / {parse_date(stock.start_date)}</strong>
 End Date: <strong>{parse_miti(stock.end_date)} / {parse_date(stock.end_date)}</strong>
 Stock Type: <strong>{stock.stock_type}</strong>
-Units: <strong>{stock.units}</strong>
+{is_rightshare(stock)}
 Stock Symbol: <strong>{stock.stock_symbol}</strong>
 Investment ID: <strong>{stock.investment_id}</strong>
 Description: <strong><a href="https://sidbelbase.me/">See PDF</a></strong>
+{HORI_LINE}
     """
 
 
@@ -47,7 +49,17 @@ def parse_miti(given_date: date) -> str:
 
 
 def parse_date(given_date: date) -> str:
-    return date(given_date).strftime('%B %d')
+    return given_date.strftime('%B %d')
+
+
+def is_rightshare(stock: str) -> str:
+    # if its right share, publish both units and ratios else units only
+    units = f"Units: <strong>{stock.units}</strong>"
+    ratio = f"Ratio: <strong>{stock.ratio}</strong>"
+    if stock.ratio:
+        return f"{units}\n{ratio}"
+    else:
+        return units
 
 
 def get_pdf_link(pdf_name: str) -> str:
@@ -56,4 +68,3 @@ def get_pdf_link(pdf_name: str) -> str:
 
 # :TODO:
 # Find PDF URL
-# Introduce condition between right share and others stocks
