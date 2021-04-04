@@ -15,7 +15,7 @@ def handle_response(the_url, payload):
         return print(error.response.text)
 
 
-def send_content(stock_detail: str):
+def send_only_content(stock_detail: str):
     endpoint = TELEGRAM_URL + 'sendMessage'
     payload = {
         'chat_id': CHANNEL,
@@ -26,7 +26,7 @@ def send_content(stock_detail: str):
     return handle_response(endpoint, payload)
 
 
-def send_pdf(stock_detail: str):
+def send_with_pdf(stock_detail: str):
     endpoint = TELEGRAM_URL + 'sendDocument'
     pdf = PDF_URL + stock_detail.pdf
     payload = {
