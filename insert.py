@@ -3,7 +3,7 @@ from sqlalchemy.orm import Query
 from models import Stock, session
 from fetch import latest_stocks
 
-Stocks = Query(Stock, session)
+StockTable = Query(Stock, session)
 
 
 def add_stock() -> int:
@@ -16,7 +16,7 @@ def add_stock() -> int:
         raise ConnectionError('Sorry, we couldn\'t connect to the API.')
 
     for the_stock in scraped_stocks:
-        the_stock_id = Stocks.filter(
+        the_stock_id = StockTable.filter(
             Stock.investment_id == the_stock['investment_id']).first()
 
         # If the investment_id not already in the db & if stocks are to be fetched
