@@ -42,7 +42,7 @@ def add_stock() -> int:
 
 
 def unsent_stocks():
-    return StockTable.filter(Stock.is_published == False).all()
+    return StockTable.filter(Stock.is_published == False).order_by(Stock.start_date.desc()).all()
 
 
 def mark_as_published(stock):
