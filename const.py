@@ -9,6 +9,7 @@ load_dotenv(find_dotenv())
 ORIGIN = environ['ORIGIN']
 CATEGORIES = [2, 3, 5, 7, 8]
 API_URL = environ['API_URL']
+PDF_URL = environ['PDF_URL']
 REFERER = environ['REFERER']
 CHANNEL = environ['CHANNEL']
 BOT_TOKEN = environ['BOT_TOKEN']
