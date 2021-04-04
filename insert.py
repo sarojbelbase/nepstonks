@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Query
 
 from models import Stock, session
-from stocks import latest_stocks
+from fetch import latest_stocks
 
 Stocks = Query(Stock, session)
 
