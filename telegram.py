@@ -17,11 +17,11 @@ def handle_response(the_url, payload):
 
 
 def publish_stock(the_stock):
-    if not the_stock.pdf and pdf_url_resolves(the_stock.pdf):
-        send_only_content(the_stock)
+    if pdf_url_resolves(the_stock.pdf):
+        send_with_pdf(the_stock)
         mark_as_published(the_stock)
     else:
-        send_with_pdf(the_stock)
+        send_only_content(the_stock)
         mark_as_published(the_stock)
 
 
@@ -84,6 +84,9 @@ def is_rightshare(stock: str) -> str:
 
 
 def pdf_url_resolves(pdf: str) -> bool:
-    pdf_url = PDF_URL + pdf
-    request = requests.get(pdf_url)
-    return True if request.status_code == 200 else False
+    if pdf:
+        pdf_url = PDF_URL + pdf
+        request = requests.get(pdf_url)
+        return True if request.status_code == 200 else False
+    else:
+        return False
