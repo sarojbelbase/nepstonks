@@ -3,7 +3,7 @@ from datetime import date
 import requests
 from nepali_datetime import date as nepdate
 
-from const import CHANNEL, HORI_LINE, TELEGRAM_URL
+from const import CHANNEL, HORI_LINE, PDF_URL, TELEGRAM_URL
 
 
 def handle_response(the_url, payload):
@@ -15,15 +15,27 @@ def handle_response(the_url, payload):
         return print(error.response.text)
 
 
-def publish_stock(stock_detail: str):
-    message_url = TELEGRAM_URL + 'sendMessage'
+def send_content(stock_detail: str):
+    endpoint = TELEGRAM_URL + 'sendMessage'
     payload = {
         'chat_id': CHANNEL,
         'text': parsed_content(stock_detail),
         'disable_web_page_preview': 'true',
         'parse_mode': 'HTML'
     }
-    return handle_response(message_url, payload)
+    return handle_response(endpoint, payload)
+
+
+def send_pdf(stock_detail: str):
+    endpoint = TELEGRAM_URL + 'sendDocument'
+    pdf = PDF_URL + stock_detail.pdf
+    payload = {
+        'chat_id': CHANNEL,
+        'document': pdf,
+        'caption': parsed_content(stock_detail),
+        'parse_mode': 'HTML'
+    }
+    return handle_response(endpoint, payload)
 
 
 def parsed_content(stock: str) -> str:
@@ -38,7 +50,6 @@ Stock Type: <strong>{stock.stock_type}</strong>
 {is_rightshare(stock)}
 Stock Symbol: <strong>{stock.stock_symbol}</strong>
 Investment ID: <strong>{stock.investment_id}</strong>
-Description: <strong><a href="https://sidbelbase.me/">See PDF</a></strong>
 {HORI_LINE}
     """
 
@@ -60,11 +71,3 @@ def is_rightshare(stock: str) -> str:
         return f"{units}\n{ratio}"
     else:
         return units
-
-
-def get_pdf_link(pdf_name: str) -> str:
-    pass
-
-
-# :TODO:
-# Find PDF URL
