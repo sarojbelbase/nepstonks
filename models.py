@@ -9,7 +9,7 @@ from const import DATABASE_URI
 
 sqlite_db = 'sqlite:///' + path.join(DATABASE_URI)
 connect_args = {'check_same_thread': False}
-engine = create_engine(sqlite_db, echo=True, connect_args=connect_args)
+engine = create_engine(sqlite_db, echo=False, connect_args=connect_args)
 session = Session(bind=engine)
 BaseModel = declarative_base()
 
