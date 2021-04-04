@@ -25,7 +25,7 @@ def scraped_stocks(category_id: int):
                                     category_id : 8 -> Debenture
 
     Returns:
-        List[Dict]: returns the lastes ipos of the given category
+        List[Dict]: returns the raw stocks from the given category
     """
 
     json = {
