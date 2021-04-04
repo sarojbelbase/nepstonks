@@ -4,6 +4,7 @@ import requests
 from nepali_datetime import date as nepdate
 
 from const import CHANNEL, HORI_LINE, PDF_URL, TELEGRAM_URL
+from insert import mark_as_published
 
 
 def handle_response(the_url, payload):
@@ -13,6 +14,15 @@ def handle_response(the_url, payload):
         return print(response.content.decode())
     except requests.exceptions.HTTPError as error:
         return print(error.response.text)
+
+
+def publish_stock(the_stock):
+    if not the_stock.pdf and pdf_url_resolves(the_stock.pdf):
+        send_only_content(the_stock)
+        mark_as_published(the_stock)
+    else:
+        send_with_pdf(the_stock)
+        mark_as_published(the_stock)
 
 
 def send_only_content(stock_detail: str):
@@ -71,3 +81,9 @@ def is_rightshare(stock: str) -> str:
         return f"{units}\n{ratio}"
     else:
         return units
+
+
+def pdf_url_resolves(pdf: str) -> bool:
+    pdf_url = PDF_URL + pdf
+    request = requests.get(pdf_url)
+    return True if request.status_code == 200 else False
