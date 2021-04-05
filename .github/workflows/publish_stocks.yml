@@ -14,7 +14,6 @@ jobs:
         runs-on: ubuntu-20.04
         steps:
             - uses: actions/checkout@v2
-            - uses: stefanzweifel/git-auto-commit-action@v4
 
             - name: Set up python
               uses: actions/setup-python@v2
@@ -38,8 +37,16 @@ jobs:
               run: |
                   python app.py
 
-            - name: Commit if new stocks have been added
-              if: steps.auto-commit-action.outputs.changes_detected == 'true'
+            - name: Check for changes
+              run: |
+                  if git diff --exit-code; then
+                    echo "::set-env name=STOCKS_ADDED::false"
+                  else
+                    echo "::set-env name=STOCKS_ADDED::true"
+                  fi
+
+            - name: Commit only if new stocks have been added
+              if: env.STOCKS_ADDED == 'true'
               run: |
                   git config --global user.email "stonksbot@example.com"
                   git config --global user.name "stonksbot"
