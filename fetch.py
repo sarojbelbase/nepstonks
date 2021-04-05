@@ -9,7 +9,7 @@ from const import API_URL, CATEGORIES, ORIGIN, REFERER
 def get_units(sharetype: str) -> str:
     index = sharetype.find(':')
     if index != -1:
-        # get only kittas/units and slice share type
+        # get only kittas/units and slice out the "share_type"
         return sharetype[index+1:].strip()
 
 
