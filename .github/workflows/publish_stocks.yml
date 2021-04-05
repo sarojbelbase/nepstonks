@@ -40,13 +40,13 @@ jobs:
             - name: Check for changes
               run: |
                   if git diff --exit-code; then
-                    echo "::set-env name=STOCKS_ADDED::false"
+                    echo "STOCKS_ADDED=false" >> $GITHUB_ENV
                   else
-                    echo "::set-env name=STOCKS_ADDED::true"
+                    echo "STOCKS_ADDED=true" >> $GITHUB_ENV
                   fi
 
             - name: Commit only if new stocks have been added
-              if: env.STOCKS_ADDED == 'true'
+              if: ${{ env.STOCKS_ADDED }} == 'true'
               run: |
                   git config --global user.email "stonksbot@example.com"
                   git config --global user.name "stonksbot"
