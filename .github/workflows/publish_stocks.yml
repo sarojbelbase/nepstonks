@@ -1,10 +1,13 @@
 name: publish_stocks
 
 on:
-  schedule:
-	# Runs everyday at:
-	# 04:30 UTC (GMT0:00) -> 22:45 Nepal Time (GMT+5:45)
-	- cron: "45 22 * * *"
+  push:
+    branches:
+      - main
+  # schedule:
+	# # Runs everyday at:
+	# # 04:30 UTC (GMT0:00) -> 22:45 Nepal Time (GMT+5:45)
+	# - cron: "45 22 * * *"
 
 jobs:
   build:
