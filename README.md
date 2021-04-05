@@ -1,7 +1,7 @@
 <p align="center">
 <img src="media/nepalstonks.png" width="35%" height="auto"><br>
 <strong>
-A telegram channel that informs about the upcoming stocks and other investment oppurtunities that are announced inside Nepal.
+A telegram channel that informs about the upcoming stocks and other investment opportunities that are announced inside Nepal.
 </strong>
 </p>
 
@@ -14,7 +14,7 @@ A telegram channel that informs about the upcoming stocks and other investment o
 
 ### Overview
 
-A channel that publishes stocks related to IPOs, FPOs, Right Shares, Debentures. It is backed by a `telegram-bot` that does all the heavy liftings. It fetches latest stocks from a source and sends it directly to the telegram channel. A automated `github-action` runs it everyday at an appointed time to check if there are any new investment oppurtunites announced. The actual purpose of making this `useless bot` is to discover and get into the investment world without visiting sharesansar.com or wherever the share market related news are broadcasted.
+A channel that publishes stocks related to IPOs, FPOs, Right Shares, Debentures. It is backed by a `telegram-bot` that does all the heavy lifting. It fetches latest stocks from a source and sends it directly to the telegram channel. A automated `github-action` runs it everyday at an appointed time to check if there are any new investment opportunities announced. The actual purpose of making this `useless bot` is to discover and get into the investment world without visiting `sharesansar.com` or any other share-market website or wherever people get their information.
 
 ### Prerequisites
 
@@ -42,7 +42,7 @@ A channel that publishes stocks related to IPOs, FPOs, Right Shares, Debentures.
 ### Run & Setups
 
 - [Install & activate virtual environment in this folder](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/)
-- Add `.env` file in this folder & add environment variables given aboove
+- Add `.env` file in this folder & add environment variables given above
 - Run `python -m pip install -r requirements.txt`
 
 #### Local:
