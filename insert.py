@@ -6,10 +6,9 @@ from fetch import latest_stocks
 StockTable = Query(Stock, session)
 
 
-def add_stock() -> int:
+def add_stock():
 
     try:
-        added_stocks_count: int = 0
         scraped_stocks: list = latest_stocks()
         fetched_stocks: int = len(scraped_stocks)
     except Exception:
@@ -19,7 +18,7 @@ def add_stock() -> int:
         the_stock_id = StockTable.filter(
             Stock.investment_id == the_stock['investment_id']).first()
 
-        # If the investment_id not already in the db & if stocks are to be fetched
+        # to avoid adding same stock in the database
         if not the_stock_id and fetched_stocks > 0:
             this_stock = \
                 Stock(
@@ -35,10 +34,8 @@ def add_stock() -> int:
                     stock_type=the_stock['stock_type'],
                     units=the_stock['units']
                 )
-            added_stocks_count += 1
             session.add(this_stock)
     session.commit()
-    return added_stocks_count
 
 
 def unsent_stocks():
