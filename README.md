@@ -1,7 +1,7 @@
 <p align="center">
 <img src="media/nepalstonks.png" width="35%" height="auto"><br>
 <strong>
-A telegram channel that informs about the upcoming stocks and other investment opportunities that are announced inside Nepal.
+A telegram channel that informs about the upcoming stocks, issues, and investment opportunities that are announced inside Nepal.
 </strong>
 </p>
 
@@ -14,7 +14,7 @@ A telegram channel that informs about the upcoming stocks and other investment o
 
 ### Overview
 
-A channel that publishes stocks related to IPOs, FPOs, Right Shares, Debentures. It is backed by a `telegram-bot` that does all the heavy lifting. It fetches latest stocks from a source and sends it directly to the telegram channel. A automated `github-action` runs it everyday at an appointed time to check if there are any new investment opportunities announced. The actual purpose of making this `useless bot` is to discover and get into the investment world without visiting `sharesansar.com` or any other share-market website or wherever people get their information.
+A channel that publishes stocks related to `IPOs`, `FPOs`, `Right Shares` & `Debentures`. It is backed by a `telegram-bot` that does all the heavy lifting. It fetches the latest issues from a source and sends them directly to the telegram channel. An automated `github-action` runs it every day at an appointed time to check if there are any new investment opportunities. As an automation-loving guy, I just saved myself many clicks of `sharesansar` or other similar portals we get these discoveries from.
 
 ### Prerequisites
 
@@ -53,5 +53,7 @@ A channel that publishes stocks related to IPOs, FPOs, Right Shares, Debentures.
 
 <strong><a target="_blank" href="https://t.me/thenepstonksbot">telegram bot > t.me/thenepstonksbot</a></strong><br>
 <strong><a target="_blank" href="https://t.me/nepstonks">telegram channel > t.me/nepstonks</a></strong><br>
+
+Inspirations from <a target="_blank" href="https://github.com/amitness/auto-investment">amitness' auto-investment</a>
 
 ### Made with ❤️ in Nepal.
