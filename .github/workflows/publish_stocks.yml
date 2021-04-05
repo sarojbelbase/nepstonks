@@ -1,43 +1,43 @@
 name: publish_stocks
 
 on:
-	schedule:
-	# Runs everyday at:
-	# 04:30 UTC (GMT0:00) -> 22:45 Nepal Time (GMT+5:45)
-	# - cron: "45 22 * * *"
-	- cron: "*/6 * * * *"
+  schedule:
+    # Runs everyday at:
+    # 04:30 UTC (GMT0:00) -> 22:45 Nepal Time (GMT+5:45)
+    # - cron: "45 22 * * *"
+    - cron: "*/6 * * * *"
 
 jobs:
-	build:
-	runs-on: ubuntu-20.04
-	steps:
-		- uses: actions/checkout@v2
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
 
-		- name: setup python
-		uses: actions/setup-python@v2
-		with:
-			python-version: 3.7
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
 
-		- name: install dependencies
-		run: |
-			python -m pip install --upgrade pip
-			pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-		- name: add new stocks & publish to telegram channel
-		env:
-			CHANNEL: ${{ secrets.CHANNEL }}
-			BOT_USERNAME: ${{ secrets.BOT_USERNAME }}
-			BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-			ORIGIN: ${{ secrets.ORIGIN }}
-			REFERER: ${{ secrets.REFERER }}
-			API_URL: ${{ secrets.API_URL }}
-			PDF_URL: ${{ secrets.PDF_URL }}
-		run: |
-			python app.py
+      - name: Add new stocks & publish to telegram channel
+        env:
+          CHANNEL: ${{ secrets.CHANNEL }}
+          BOT_USERNAME: ${{ secrets.BOT_USERNAME }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          ORIGIN: ${{ secrets.ORIGIN }}
+          REFERER: ${{ secrets.REFERER }}
+          API_URL: ${{ secrets.API_URL }}
+          PDF_URL: ${{ secrets.PDF_URL }}
+        run: |
+          python app.py
 
-		- name: Commit and push
-		run: |
-			git config --global user.email "stonksbot@example.com"
-			git config --global user.name "stonksbot"
-			git commit -m "🌱 db: add new stocks" -a
-			git push origin HEAD:main
+      - name: Commit and push
+        run: |-
+          git config --global user.email "stonksbot@example.com"
+          git config --global user.name "stonksbot"
+          git commit -m "🌱 db: add new stocks" -a
+          git push origin HEAD:main
