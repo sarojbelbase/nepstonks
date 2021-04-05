@@ -1,9 +1,6 @@
 name: publish_stocks
 
 on:
-  push:
-    branches:
-      - main
   schedule:
     # Runs everyday at:
     # 04:30 UTC (GMT0:00) -> 22:45 Nepal Time (GMT+5:45)
@@ -15,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Python 3.7
+      - name: Set up python
         uses: actions/setup-python@v2
         with:
           python-version: 3.7
@@ -39,8 +36,7 @@ jobs:
 
       - name: Commit and push
         run: |-
-          git diff
           git config --global user.email "stonksbot@example.com"
           git config --global user.name "stonksbot"
-          git commit --allow-empty -m "🌱 db: add new stocks" -a
+          git commit -m "🌱 db: add new stocks" -a
           git push origin HEAD:main
