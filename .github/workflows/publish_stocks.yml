@@ -14,6 +14,7 @@ jobs:
         runs-on: ubuntu-20.04
         steps:
             - uses: actions/checkout@v2
+            - uses: stefanzweifel/git-auto-commit-action@v4
 
             - name: Set up python
               uses: actions/setup-python@v2
@@ -38,7 +39,6 @@ jobs:
                   python app.py
 
             - name: Commit if new stocks have been added
-              uses: stefanzweifel/git-auto-commit-action@v4
               if: steps.auto-commit-action.outputs.changes_detected == 'true'
               run: |
                   git config --global user.email "stonksbot@example.com"
