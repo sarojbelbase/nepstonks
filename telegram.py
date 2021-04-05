@@ -66,13 +66,14 @@ def is_rightshare(stock: str) -> str:
 
 
 def pdf_url_resolves(pdf: str) -> bool:
-    """Tells if pdf link still working if the stock has pdf
+    """Checks if the given pdf resolves (if it has pdf)
 
     Args:
         pdf (str): pdf filename with pdf extension
 
     Returns:
-        bool: returns False if it can't resolve the pdf link else returns True
+        bool: returns False if it can't resolve the generated pdf link
+         from the given pdf else returns True
     """
     if pdf:
         pdf_url = PDF_URL + pdf

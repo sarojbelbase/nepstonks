@@ -14,7 +14,7 @@ def get_units(sharetype: str) -> str:
 
 
 def scraped_stocks(category_id: int):
-    """gets stocks in raw form with the given category_id
+    """gets stocks in a raw form within the provided category
 
     Args:
         category_id (int): the category to be fetched from the available categories
@@ -25,7 +25,7 @@ def scraped_stocks(category_id: int):
                                     category_id : 8 -> Debenture
 
     Returns:
-        List[Dict]: returns the raw stocks from the given category
+        List[Dict]: returns the stocks in raw form from the given category
     """
 
     json = {

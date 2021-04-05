@@ -14,7 +14,7 @@ A telegram channel that informs about the upcoming stocks, issues, and investmen
 
 ### Overview
 
-A channel that publishes stocks related to `IPOs`, `FPOs`, `Right Shares` & `Debentures`. It is backed by a `telegram-bot` that does all the heavy lifting. It fetches the latest issues from a source and sends them directly to the telegram channel. An automated `github-action` runs it every day at an appointed time to check if there are any new investment opportunities. As an automation-loving guy, I just saved myself many clicks of `sharesansar` or other similar portals we get these discoveries from.
+A channel that publishes stocks related to `IPOs`, `FPOs`, `Right Shares` & `Debentures`. It is backed by a `telegram-bot` that does all the heavy lifting. It fetches the latest issues from an API and sends them directly to this telegram channel. An automated `github-action` runs it every day at an appointed time to check if there are any new issues available. As an automation-loving guy, I just saved myself many clicks of `sharesansar` or other similar portals we get these information from. Feel free to fork, star to your liking.
 
 ### Prerequisites
 
@@ -25,9 +25,9 @@ A channel that publishes stocks related to `IPOs`, `FPOs`, `Right Shares` & `Deb
 
 ### Used Tools & Technologies
 
-- sqlite: A database for storing stocks
-- sqlalchemy: SQL toolkit and object-relational mapper for Python
-- github-actions: CI/CD that makes it easy to automate all your software workflows
+- SQLite: A database for storing stocks
+- SQLAlchemy: SQL toolkit and object-relational mapper for Python
+- Github Actions: CI/CD that makes it easy to automate all your software workflows
 
 ### Environment Variables
 
@@ -37,23 +37,20 @@ A channel that publishes stocks related to `IPOs`, `FPOs`, `Right Shares` & `Deb
 - `API_URL` = 'URL from where stocks are fetched (POST REQUEST)'
 - `ORIGIN` = 'Origin needed for header when POST request is sent'
 - `ORIGIN` = 'Origin needed for header from where it was referred'
-- `PDF_URL` = 'URL that stores the uploaded pdfs'
+- `PDF_URL` = 'URL that stores the uploaded PDF'
 
 ### Run & Setups
 
 - [Install & activate virtual environment in this folder](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/)
-- Add `.env` file in this folder & add environment variables given above
+- Add `.env` file in this folder & add all environment variables given above
 - Run `python -m pip install -r requirements.txt`
-
-#### Local:
-
-`python app.py`
+- Run `python app.py`
 
 ### Links
 
 <strong><a target="_blank" href="https://t.me/thenepstonksbot">telegram bot > t.me/thenepstonksbot</a></strong><br>
 <strong><a target="_blank" href="https://t.me/nepstonks">telegram channel > t.me/nepstonks</a></strong><br>
 
-Inspirations from <a target="_blank" href="https://github.com/amitness/auto-investment">amitness' auto-investment</a>
+- Adapted from <a target="_blank" href="https://github.com/amitness/auto-investment">amitness' auto-investment</a>
 
 ### Made with ❤️ in Nepal.
