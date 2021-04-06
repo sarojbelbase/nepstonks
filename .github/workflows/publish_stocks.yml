@@ -34,18 +34,9 @@ jobs:
               run: |
                   python app.py
 
-            - name: Check for changes
-              run: |
-                  if git diff --exit-code; then
-                    echo "STOCKS_ADDED=false" >> $GITHUB_ENV
-                  else
-                    echo "STOCKS_ADDED=true" >> $GITHUB_ENV
-                  fi
-
             - name: Commit only if new stocks have been added
-              if: ${{ env.STOCKS_ADDED }} == 'true'
               run: |
-                  git config --global user.email "stonksbot@example.com"
+                  git config --global user.email "stonksbot@sidbelbase.com"
                   git config --global user.name "stonksbot"
-                  git commit -m "🌱 db: add new stocks" -a
+                  git diff --quiet || (git add stock.db && git commit -m "🌱 db: add new stocks")
                   git push origin HEAD:main
