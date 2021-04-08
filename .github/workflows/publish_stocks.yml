@@ -36,7 +36,7 @@ jobs:
 
             - name: Commit only if new stocks have been added
               run: |
-                  git config --global user.email "stonksbot@sidbelbase.com"
+                  git config --global user.email "stonksbot@example.com"
                   git config --global user.name "stonksbot"
                   git diff --quiet || (git add stock.db && git commit -m "🌱 db: add new stocks")
                   git push origin HEAD:main
