@@ -56,7 +56,7 @@ def parse_date(given_date: date) -> str:
 
 
 def is_rightshare(stock: str) -> str:
-    # if its right share, publish both units & ratio else publish units only
+    # if its right share it publishes both units & ratio else publish units only
     units = f"Units: <strong>{stock.units}</strong>"
     ratio = f"Ratio: <strong>{stock.ratio}</strong>"
     if stock.ratio:

@@ -35,6 +35,6 @@ class Stock(BaseModel):
         return f'{self.company_name}({self.stock_type})'
 
 
-# To create a database with models specified above if db doesn't exist
+# To create a new database with models specified above if db doesn't exist
 if not path.isfile(DATABASE_URI):
     BaseModel.metadata.create_all(engine)

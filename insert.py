@@ -18,7 +18,7 @@ def add_stock():
         the_stock_id = StockTable.filter(
             Stock.investment_id == the_stock['investment_id']).first()
 
-        # to avoid adding same stock in the database
+        # to avoid inserting the same stock in the table
         if not the_stock_id and fetched_stocks > 0:
             this_stock = \
                 Stock(
