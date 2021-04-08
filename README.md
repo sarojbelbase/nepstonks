@@ -14,7 +14,7 @@ A telegram channel that informs about the upcoming stocks, issues, and investmen
 
 ### Overview
 
-A channel that publishes stocks related to `IPOs`, `FPOs`, `Right Shares` & `Debentures`. It is backed by a `telegram-bot` that does all the heavy lifting. It fetches the latest issues from an API and sends them directly to this telegram channel. An automated `github-action` runs it every day at an appointed time to check if there are any new issues available. As an automation-loving guy, I just saved myself many clicks of `sharesansar` or other similar portals we get these information from. Feel free to fork, star to your liking.
+A channel that publishes stocks related to `IPOs`, `FPOs`, `Mutual Funds`, `Right Shares` & `Debentures`. It is backed by a `telegram-bot` that does all the heavy lifting. It fetches the latest issues from an API and sends them directly to this telegram channel. An automated `github-action` runs it every day at an appointed time to check if there are any new issues available. As an automation-loving guy, I just saved myself many clicks of `sharesansar` or other similar portals we get these information from.
 
 ### Prerequisites
 
@@ -41,16 +41,15 @@ A channel that publishes stocks related to `IPOs`, `FPOs`, `Right Shares` & `Deb
 
 ### Run & Setups
 
-- [Install & activate virtual environment in this folder](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/)
-- Add `.env` file in this folder & add all environment variables given above
+- [Install & activate virtual environment in the project root folder](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/)
+- Add `.env` file in this folder & add all the environment variables with values given <a href="https://github.com/sidbelbase/nepstonks#environment-variables">here</a>
 - Run `python -m pip install -r requirements.txt`
 - Run `python app.py`
 
 ### Links
 
-<strong><a target="_blank" href="https://t.me/thenepstonksbot">telegram bot > t.me/thenepstonksbot</a></strong><br>
 <strong><a target="_blank" href="https://t.me/nepstonks">telegram channel > t.me/nepstonks</a></strong><br>
 
-- Adapted from <a target="_blank" href="https://github.com/amitness/auto-investment">amitness' auto-investment</a>
+Inspired from <a target="_blank" href="https://github.com/amitness/auto-investment">auto-investment.</a> Feel free to fork or star to your liking.
 
 ### Made with ❤️ in Nepal.
