@@ -11,8 +11,8 @@ def add_stock():
     try:
         scraped_stocks: list = latest_stocks()
         fetched_stocks: int = len(scraped_stocks)
-    except Exception:
-        raise ConnectionError('Sorry, we couldn\'t connect to the API.')
+    except Exception as error:
+        print("Sorry couldn't connect to the API.", error)
 
     for the_stock in scraped_stocks:
         the_stock_id = StockTable.filter(
