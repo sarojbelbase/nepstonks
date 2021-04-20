@@ -29,13 +29,13 @@ def bizmandu():
         date = ps.parse(raw_date.split('बिजमाण्डू')[1].strip())
 
         the_article = {
-            "title": bleach(title),
-            "source": source,
             "description": fix_last_dharko(bleach(description)),
-            "url": url,
             "image_url": None,
-            "timestamp": date,
             "lang": "nepali",
+            "source": source,
+            "timestamp": date,
+            "title": bleach(title),
+            "url": url,
         }
 
         articles.append(the_article)
