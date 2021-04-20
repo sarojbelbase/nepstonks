@@ -40,7 +40,7 @@ class News(BaseModel):
     id = Column(Integer(), primary_key=True)
     date_published = Column(DateTime(), nullable=False)
     description = Column(Text(), nullable=True)
-    image_url = Column(String(), nullable=False)
+    image_url = Column(String(), nullable=True)
     is_published = Column(Boolean(), default=False)
     lang = Column(String(), nullable=False)
     source = Column(String(), nullable=False)
