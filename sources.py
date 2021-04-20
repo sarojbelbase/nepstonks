@@ -29,11 +29,11 @@ def bizmandu():
         date = ps.parse(raw_date.split('बिजमाण्डू')[1].strip())
 
         the_article = {
+            "date_published": date,
             "description": fix_last_dharko(bleach(description)),
             "image_url": None,
             "lang": "nepali",
             "source": source,
-            "timestamp": date,
             "title": bleach(title),
             "url": url,
         }
