@@ -1,7 +1,7 @@
 from datetime import datetime
 from os import path
 
-from sqlalchemy import Boolean, Column, Date, DateTime, Integer, String, create_engine
+from sqlalchemy import Boolean, Column, Date, DateTime, Integer, String, Text, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
@@ -33,6 +33,24 @@ class Stock(BaseModel):
 
     def __repr__(self):
         return f'{self.company_name}({self.stock_type})'
+
+
+class News(BaseModel):
+    __tablename__ = 'news'
+    id = Column(Integer(), primary_key=True)
+    source = Column(String(), nullable=False)
+    title = Column(String(), nullable=False)
+    description = Column(Text(), nullable=True)
+    source = Column(String(), nullable=False)
+    url = Column(String(), nullable=False)
+    image_url = Column(String(), nullable=False)
+    is_published = Column(Boolean(), default=False)
+    news_added_at = Column(DateTime(), default=datetime.utcnow)
+    lang = Column(String(), nullable=False)
+    date_published = Column(DateTime(), nullable=False)
+
+    def __repr__(self):
+        return f'{self.title}({self.source})'
 
 
 # To create a new database with models specified above if db doesn't exist
