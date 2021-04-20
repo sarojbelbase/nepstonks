@@ -38,16 +38,15 @@ class Stock(BaseModel):
 class News(BaseModel):
     __tablename__ = 'news'
     id = Column(Integer(), primary_key=True)
-    source = Column(String(), nullable=False)
-    title = Column(String(), nullable=False)
+    date_published = Column(DateTime(), nullable=False)
     description = Column(Text(), nullable=True)
-    source = Column(String(), nullable=False)
-    url = Column(String(), nullable=False)
     image_url = Column(String(), nullable=False)
     is_published = Column(Boolean(), default=False)
-    article_added_at = Column(DateTime(), default=datetime.utcnow)
     lang = Column(String(), nullable=False)
-    date_published = Column(DateTime(), nullable=False)
+    source = Column(String(), nullable=False)
+    title = Column(String(), nullable=False)
+    url = Column(String(), nullable=False)
+    article_added_at = Column(DateTime(), default=datetime.utcnow)
 
     def __repr__(self):
         return f'{self.title}({self.source})'
