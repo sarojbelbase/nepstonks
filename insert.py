@@ -1,9 +1,11 @@
 from sqlalchemy.orm import Query
 
-from models import Stock, session
 from fetch import latest_stocks
+from models import News, Stock, session
+from sources import bizmandu
 
 StockTable = Query(Stock, session)
+NewsTable = Query(News, session)
 
 
 def add_stock():
@@ -35,6 +37,34 @@ def add_stock():
                     units=the_stock['units']
                 )
             session.add(this_stock)
+    session.commit()
+
+
+def add_article():
+
+    try:
+        scraped_articles: list = bizmandu()
+        fetched_articles: int = len(scraped_articles)
+    except Exception as error:
+        print("Sorry couldn't connect to the API.", error)
+
+    for the_article in scraped_articles:
+        the_article_id = NewsTable.filter(
+            News.title == the_article['title']).first()
+
+        # to avoid inserting the same article in the table
+        if not the_article_id and fetched_articles > 0:
+            this_article = \
+                News(
+                    date_published=the_article['date_published'],
+                    description=the_article['description'],
+                    image_url=the_article['image_url'],
+                    lang=the_article['lang'],
+                    source=the_article['source'],
+                    title=the_article['title'],
+                    url=the_article['url'],
+                )
+            session.add(this_article)
     session.commit()
 
 
