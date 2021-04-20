@@ -72,6 +72,10 @@ def unsent_stocks():
     return StockTable.filter(Stock.is_published == False).order_by(Stock.start_date.desc()).all()
 
 
-def mark_as_published(stock):
-    stock.is_published = True
-    session.add(stock)
+def unsent_articles():
+    return StockTable.filter(News.is_published == False).order_by(News.date_published.desc()).all()
+
+
+def mark_as_published(given_item):
+    given_item.is_published = True
+    session.add(given_item)
