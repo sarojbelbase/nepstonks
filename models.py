@@ -45,7 +45,7 @@ class News(BaseModel):
     url = Column(String(), nullable=False)
     image_url = Column(String(), nullable=False)
     is_published = Column(Boolean(), default=False)
-    news_added_at = Column(DateTime(), default=datetime.utcnow)
+    article_added_at = Column(DateTime(), default=datetime.utcnow)
     lang = Column(String(), nullable=False)
     date_published = Column(DateTime(), nullable=False)
 
