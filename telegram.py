@@ -30,6 +30,27 @@ def send_with_pdf(stock_detail: str):
     return handle_response(endpoint, payload)
 
 
+def send_only_article(article: str):
+    endpoint = TELEGRAM_URL + 'sendMessage'
+    payload = {
+        'chat_id': CHANNEL,
+        'text': parsed_article_content(article),
+        'disable_web_page_preview': 'true',
+        'disable_notification': 'true',
+        'parse_mode': 'HTML'
+    }
+    return handle_response(endpoint, payload)
+
+
+def parsed_article_content(article: str) -> str:
+    return f"""
+<strong>{article.title}</strong>
+<strong>{parse_date(article.published_date)} | {article.source}</strong>
+{article.description}
+<a href="{article.url}"><strong>Read More</strong></a>
+    """
+
+
 def parsed_stock_content(stock: str) -> str:
     return f"""
 <strong><i>New Upcoming {stock.stock_type} Alert!</i></strong>
