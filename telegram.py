@@ -45,7 +45,7 @@ def send_only_article(article: str):
 def parsed_article_content(article: str) -> str:
     return f"""
 <strong>{article.title}</strong>
-<strong>{parse_date(article.published_date)} | {article.source}</strong>
+<strong>{parse_date(article.date_published)} | {article.source}</strong>
 {article.description}
 <a href="{article.url}"><strong>Read More</strong></a>
     """
