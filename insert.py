@@ -73,7 +73,7 @@ def unsent_stocks():
 
 
 def unsent_articles():
-    return StockTable.filter(News.is_published == False).order_by(News.date_published.desc()).all()
+    return NewsTable.filter(News.is_published == False).order_by(News.date_published.desc()).all()
 
 
 def mark_as_published(given_item):
