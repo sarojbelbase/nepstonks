@@ -120,3 +120,8 @@ def publish_stock(the_stock):
     else:
         send_only_content(the_stock)
         mark_as_published(the_stock)
+
+
+def publish_article(the_article):
+    send_only_article(the_article)
+    mark_as_published(the_article)
