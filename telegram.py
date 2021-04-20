@@ -11,7 +11,7 @@ def send_only_content(stock_detail: str):
     endpoint = TELEGRAM_URL + 'sendMessage'
     payload = {
         'chat_id': CHANNEL,
-        'text': parsed_content(stock_detail),
+        'text': parsed_stock_content(stock_detail),
         'disable_web_page_preview': 'true',
         'parse_mode': 'HTML'
     }
@@ -24,13 +24,13 @@ def send_with_pdf(stock_detail: str):
     payload = {
         'chat_id': CHANNEL,
         'document': pdf,
-        'caption': parsed_content(stock_detail),
+        'caption': parsed_stock_content(stock_detail),
         'parse_mode': 'HTML'
     }
     return handle_response(endpoint, payload)
 
 
-def parsed_content(stock: str) -> str:
+def parsed_stock_content(stock: str) -> str:
     return f"""
 <strong><i>New Upcoming {stock.stock_type} Alert!</i></strong>
 {HORI_LINE}
