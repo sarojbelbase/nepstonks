@@ -1,11 +1,11 @@
 import re
-from unicodedata import normalize
 
 import requests
 from bs4 import BeautifulSoup as bs
 from dateutil import parser as ps
 
 from const import NEWS_URL_BM
+from utils import bleach, fix_last_dharko
 
 
 # main section: goes to the given url and scrapes
@@ -60,18 +60,3 @@ def bizmandu():
         articles.append(the_article)
 
     return articles
-
-
-def bleach(given_text: str) -> str:
-    extra_space = normalize('NFKD', given_text)
-    return extra_space.replace('\n', '')
-
-
-def fix_last_dharko(given_text: str) -> str:
-    dharko = '।'
-    matches = re.finditer(dharko, given_text)
-    all_dharkos = [match.start() for match in matches]
-    index_of_last_dharko = max(all_dharkos)
-    # also include the dharko after slicing the given text
-    fixed_text = given_text[:index_of_last_dharko+1]
-    return fixed_text
