@@ -1,7 +1,7 @@
 <p align="center">
 <img src="media/nepalstonks.png" width="35%" height="auto"><br>
 <strong>
-A telegram channel that informs about the upcoming stocks, issues, and investment opportunities that are announced inside Nepal.
+A telegram channel that informs with the latest share market news, upcoming stocks, issues, and investment opportunities that are announced inside Nepal.
 </strong>
 </p>
 
@@ -14,7 +14,7 @@ A telegram channel that informs about the upcoming stocks, issues, and investmen
 
 ### Overview
 
-A channel that publishes stocks related to `IPOs`, `FPOs`, `Mutual Funds`, `Right Shares` & `Debentures`. It is backed by a `telegram-bot` that does all the heavy lifting. It fetches the latest issues from an API and sends them directly to this telegram channel. An automated `github-action` runs it every day at an appointed time to check if there are any new issues available. As an automation-loving guy, I just saved myself many clicks of `sharesansar` or other similar portals we get these information from.
+A channel that publishes latest news & upcoming stocks related to `IPOs`, `FPOs`, `Mutual Funds`, `Right Shares` & `Debentures`. It is backed by a `telegram-bot` that does all the heavy lifting i.e. from scraping share related news from the reputed websites to updating with the latest upcoming issues. The upcoming stocks are fetched from an API and get published to this telegram channel, whereas for articles, they are scraped from multiple sources. The most important works are carried by github actions which run these workflows every day at an appointed time frame to check if there are any new issues or articles available, where I don't need to worry about deploying and cron jobs. As an automation-loving guy, I just saved myself many clicks of `sharesansar`, `bizmandu` or any other similar portals we get these updates from.
 
 ### Prerequisites
 
@@ -37,6 +37,7 @@ A channel that publishes stocks related to `IPOs`, `FPOs`, `Mutual Funds`, `Righ
 - `API_URL` = 'URL from where stocks are fetched (POST REQUEST)'
 - `ORIGIN` = 'Origin needed for header when POST request is sent'
 - `ORIGIN` = 'Origin needed for header from where it was referred'
+- `NEWS_URL_BM` = 'The scraping link from Bizmandu'
 - `PDF_URL` = 'URL that stores the uploaded PDF'
 
 ### Run & Setups
@@ -50,6 +51,7 @@ A channel that publishes stocks related to `IPOs`, `FPOs`, `Mutual Funds`, `Righ
 
 <strong><a target="_blank" href="https://t.me/nepstonks">telegram channel > t.me/nepstonks</a></strong><br>
 
-Inspired from <a target="_blank" href="https://github.com/amitness/auto-investment">auto-investment.</a> Feel free to fork or star to your liking.
+Inspired from <a target="_blank" href="https://github.com/amitness/auto-investment">auto-investment.</a>
+Feel free to fork or give a star to support my doing.
 
 ### Made with ❤️ in Nepal.
