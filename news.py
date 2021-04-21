@@ -77,6 +77,8 @@ def main():
         the_list = unpublished_articles[::-1]
         for the_article in the_list:
             publish_article(the_article)
+        from models import session
+        session.commit()
     return {"ok": "true"}
 
 
