@@ -5,10 +5,11 @@ from bs4 import BeautifulSoup as bs
 from dateutil import parser as ps
 
 from const import NEWS_URL_BM
+from telegram import publish_article
 from utils import bleach, fix_last_dharko
 
 
-# main section: goes to the given url and scrapes
+# scrape section: a function that starts the scraping engine
 
 def scrape_articles(url: str):
     parser = 'lxml'
@@ -60,3 +61,24 @@ def bizmandu():
         articles.append(the_article)
 
     return articles
+
+
+# main section: combines all required functions and executes them
+
+def main():
+    from insert import unsent_articles
+    # fetch and store new articles before publishing to the channel
+    # add_article()
+
+    unpublished_articles = list(unsent_articles())
+    if len(unpublished_articles) > 0:
+        # articles that are older has to be published first
+        # making the latest ones to be after the older ones
+        the_list = unpublished_articles[::-1]
+        for the_article in the_list:
+            publish_article(the_article)
+    return {"ok": "true"}
+
+
+if __name__ == '__main__':
+    main()
