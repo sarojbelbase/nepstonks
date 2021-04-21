@@ -15,3 +15,10 @@ def fix_last_dharko(given_text: str) -> str:
     # also include the dharko after slicing the given text
     fixed_text = given_text[:index_of_last_dharko+1]
     return fixed_text
+
+
+def get_units(sharetype: str) -> str:
+    index = sharetype.find(':')
+    if index != -1:
+        # get only kittas/units and slice out the "share_type"
+        return sharetype[index+1:].strip()
