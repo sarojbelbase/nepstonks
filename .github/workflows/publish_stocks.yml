@@ -27,6 +27,7 @@ jobs:
                   CHANNEL: ${{ secrets.CHANNEL }}
                   BOT_USERNAME: ${{ secrets.BOT_USERNAME }}
                   BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+                  NEWS_URL_BM: ${{ secrets.NEWS_URL_BM }}
                   ORIGIN: ${{ secrets.ORIGIN }}
                   REFERER: ${{ secrets.REFERER }}
                   API_URL: ${{ secrets.API_URL }}
