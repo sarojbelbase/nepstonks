@@ -1,6 +1,6 @@
-from const import CHANNEL, HORI_LINE, PDF_URL, TELEGRAM_URL
-from insert import mark_as_published
-from utils import handle_response, is_rightshare, parse_date, parse_miti, pdf_url_resolves
+from const import CHANNEL, PDF_URL, TELEGRAM_URL
+from utils import (handle_response, is_rightshare, mark_as_published,
+                   parse_date, parse_miti, pdf_url_resolves)
 
 
 def send_only_content(stock_detail: str):
@@ -42,23 +42,20 @@ def parsed_article_content(article: str) -> str:
     return f"""
 <strong>{article.title}</strong>\n
 {article.description}\n
-<strong>{article.source.title()} · {parse_date(article.date_published)} · <a href="{article.url}">Read More</a></strong>
+📣 <strong>{article.source.title()} · {parse_date(article.date_published)} · <a href="{article.url}">Read More</a></strong>
     """
 
 
 def parsed_stock_content(stock: str) -> str:
     return f"""
-<strong><i>New Upcoming {stock.stock_type} Alert!</i></strong>
-{HORI_LINE}
+📣 <strong>New Upcoming {stock.stock_type} Alert!</strong> 🆕\n
 <strong>{stock.company_name}</strong>
-Issued by: <strong>{stock.issued_by}</strong>
+Issued By: <strong>{stock.issued_by}</strong>
 Start Date: <strong>{parse_miti(stock.start_date)} / {parse_date(stock.start_date)}</strong>
 End Date: <strong>{parse_miti(stock.end_date)} / {parse_date(stock.end_date)}</strong>
 Stock Type: <strong>{stock.stock_type}</strong>
 {is_rightshare(stock)}
 Stock Symbol: <strong>{stock.stock_symbol}</strong>
-Investment ID: <strong>{stock.investment_id}</strong>
-{HORI_LINE}
     """
 
 
