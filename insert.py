@@ -2,7 +2,7 @@ from sqlalchemy.orm import Query
 
 from fetch import latest_stocks
 from models import News, Stock, session
-from sources import bizmandu
+from news import bizmandu
 
 StockTable = Query(Stock, session)
 NewsTable = Query(News, session)
@@ -74,8 +74,3 @@ def unsent_stocks():
 
 def unsent_articles():
     return NewsTable.filter(News.is_published == False).order_by(News.date_published.desc()).all()
-
-
-def mark_as_published(given_item):
-    given_item.is_published = True
-    session.add(given_item)
