@@ -22,3 +22,9 @@ def get_units(sharetype: str) -> str:
     if index != -1:
         # get only kittas/units and slice out the "share_type"
         return sharetype[index+1:].strip()
+
+
+def mark_as_published(given_item):
+    from insert import session
+    given_item.is_published = True
+    session.add(given_item)
