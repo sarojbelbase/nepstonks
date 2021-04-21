@@ -7,11 +7,13 @@ from nepali_datetime import date as nepdate
 
 
 def bleach(given_text: str) -> str:
+    # replaces line breaks and extra spaces
     extra_space = normalize('NFKD', given_text)
     return extra_space.replace('\n', '')
 
 
 def fix_last_dharko(given_text: str) -> str:
+    # removes incomplete texts towards the end
     dharko = '।'
     matches = re.finditer(dharko, given_text)
     all_dharkos = [match.start() for match in matches]
@@ -73,6 +75,7 @@ def pdf_url_resolves(pdf: str) -> bool:
 
 
 def handle_response(the_url, payload):
+    # handles telegram bot requests and raise if it can't
     try:
         response = requests.post(the_url, data=payload)
         response.raise_for_status()
