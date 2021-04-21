@@ -66,9 +66,9 @@ def bizmandu():
 # main section: combines all required functions and executes them
 
 def main():
-    from insert import unsent_articles
+    from insert import unsent_articles, add_article
     # fetch and store new articles before publishing to the channel
-    # add_article()
+    add_article()
 
     unpublished_articles = list(unsent_articles())
     if len(unpublished_articles) > 0:
