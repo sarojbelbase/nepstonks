@@ -1,10 +1,6 @@
-from datetime import date
-
-import requests
-from nepali_datetime import date as nepdate
-
 from const import CHANNEL, HORI_LINE, PDF_URL, TELEGRAM_URL
 from insert import mark_as_published
+from utils import handle_response, is_rightshare, parse_date, parse_miti, pdf_url_resolves
 
 
 def send_only_content(stock_detail: str):
@@ -64,52 +60,6 @@ Stock Symbol: <strong>{stock.stock_symbol}</strong>
 Investment ID: <strong>{stock.investment_id}</strong>
 {HORI_LINE}
     """
-
-
-def parse_miti(given_date: date) -> str:
-    miti = nepdate.from_datetime_date(given_date)
-    return miti.strftime('%B %d')
-
-
-def parse_date(given_date: date) -> str:
-    return given_date.strftime('%B %d')
-
-
-def is_rightshare(stock: str) -> str:
-    # if its right share it publishes both units & ratio else publish units only
-    units = f"Units: <strong>{stock.units}</strong>"
-    ratio = f"Ratio: <strong>{stock.ratio}</strong>"
-    if stock.ratio:
-        return f"{units}\n{ratio}"
-    else:
-        return units
-
-
-def pdf_url_resolves(pdf: str) -> bool:
-    """Checks if the given pdf resolves (if it has pdf)
-
-    Args:
-        pdf (str): pdf filename with pdf extension
-
-    Returns:
-        bool: returns False if it can't resolve the generated pdf link
-         from the given pdf else returns True
-    """
-    if pdf:
-        pdf_url = PDF_URL + pdf
-        request = requests.get(pdf_url)
-        return True if request.status_code == 200 else False
-    else:
-        return False
-
-
-def handle_response(the_url, payload):
-    try:
-        response = requests.post(the_url, data=payload)
-        response.raise_for_status()
-        return print(response.content.decode())
-    except requests.exceptions.HTTPError as error:
-        return print(error.response.text)
 
 
 def publish_stock(the_stock):
