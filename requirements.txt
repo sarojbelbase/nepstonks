@@ -4,7 +4,7 @@ certifi==2020.12.5
 chardet==4.0.0
 greenlet==1.0.0
 idna==2.10
-importlib-metadata==3.10.0
+importlib-metadata==4.0.1
 lxml==4.6.3
 nepali-datetime==1.0.6
 pycodestyle==2.7.0
