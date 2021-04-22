@@ -2,7 +2,7 @@ from sqlalchemy.orm import Query
 
 from fetch import latest_stocks
 from models import News, Stock, session
-from news import bizmandu
+from news import latest_articles
 
 StockTable = Query(Stock, session)
 NewsTable = Query(News, session)
@@ -43,7 +43,7 @@ def add_stock():
 def add_article():
 
     try:
-        scraped_articles: list = bizmandu()
+        scraped_articles: list = latest_articles()
         fetched_articles: int = len(scraped_articles)
     except Exception as error:
         print("Sorry couldn't connect to the API.", error)

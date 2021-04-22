@@ -6,7 +6,7 @@ from dateutil import parser as ps
 
 from const import NEWS_URL_BM
 from telegram import publish_article
-from utils import bleach, fix_last_dharko
+from utils import bleach, fix_last_dharko, merge_sources
 
 
 # scrape section: a function that starts the scraping engine
@@ -65,8 +65,12 @@ def bizmandu():
 
 # main section: combines all required functions and executes them
 
+def latest_articles():
+    return merge_sources(bizmandu())
+
+
 def main():
-    from insert import unsent_articles, add_article
+    from insert import add_article, unsent_articles
     # fetch and store new articles before publishing to the channel
     add_article()
 

@@ -1,5 +1,6 @@
 import re
 from datetime import date
+from typing import Dict, List
 from unicodedata import normalize
 
 import requests
@@ -82,3 +83,10 @@ def handle_response(the_url, payload):
         return print(response.content.decode())
     except requests.exceptions.HTTPError as error:
         return print(error.response.text)
+
+
+def merge_sources(*sources: list) -> List[Dict]:
+    new_list = []
+    for item in sources:
+        new_list += item
+    return new_list
