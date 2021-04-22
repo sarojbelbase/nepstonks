@@ -33,7 +33,7 @@ jobs:
                   API_URL: ${{ secrets.API_URL }}
                   PDF_URL: ${{ secrets.PDF_URL }}
               run: |
-                  python app.py
+                  python stocks.py
 
             - name: Commit only if new stocks have been added
               run: |
