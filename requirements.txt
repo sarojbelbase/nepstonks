@@ -3,7 +3,7 @@ beautifulsoup4==4.9.3
 certifi==2020.12.5
 chardet==4.0.0
 greenlet==1.0.0
-idna==2.10
+idna==3.1
 importlib-metadata==3.10.0
 lxml==4.6.3
 nepali-datetime==1.0.6
