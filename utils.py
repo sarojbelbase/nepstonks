@@ -56,20 +56,24 @@ def is_rightshare(stock: str) -> str:
         return units
 
 
-def pdf_url_resolves(pdf: str) -> bool:
-    from const import PDF_URL
-    """Checks if the given pdf resolves (if it has pdf)
+def has_description(article: str) -> str:
+    # if the article has description return description else None
+    desc = f'{article.description}\n'
+    return desc if article.description else '\n'
+
+
+def media_url_resolves(media_url: str) -> bool:
+    """Checks if the given media url resolves (if it has the media)
 
     Args:
-        pdf (str): pdf filename with pdf extension
+        media_url (str): the full url of the media
 
     Returns:
-        bool: returns False if it can't resolve the generated pdf link
-         from the given pdf else returns True
+        bool: returns False if it can't resolve the generated media link
+         from the given media link else returns True
     """
-    if pdf:
-        pdf_url = PDF_URL + pdf
-        request = requests.get(pdf_url)
+    if media_url:
+        request = requests.get(media_url)
         return True if request.status_code == 200 else False
     else:
         return False
