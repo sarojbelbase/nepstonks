@@ -45,6 +45,7 @@ def send_with_photo(article: str):
         'photo': article.image_url,
         'caption': parsed_article_content(article),
         'disable_web_page_preview': 'true',
+        'disable_notification': 'true',
         'parse_mode': 'HTML'
     }
     return handle_response(endpoint, payload)
