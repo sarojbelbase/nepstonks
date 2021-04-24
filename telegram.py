@@ -1,6 +1,6 @@
 from const import CHANNEL, PDF_URL, TELEGRAM_URL
-from utils import (handle_response, is_rightshare, mark_as_published,
-                   parse_date, parse_miti, pdf_url_resolves)
+from utils import (handle_response, has_description, is_rightshare,
+                   mark_as_published, parse_date, parse_miti, media_url_resolves)
 
 
 def send_only_content(stock_detail: str):
@@ -38,10 +38,22 @@ def send_only_article(article: str):
     return handle_response(endpoint, payload)
 
 
+def send_with_photo(article: str):
+    endpoint = TELEGRAM_URL + 'sendPhoto'
+    payload = {
+        'chat_id': CHANNEL,
+        'photo': article.image_url,
+        'caption': parsed_article_content(article),
+        'disable_web_page_preview': 'true',
+        'parse_mode': 'HTML'
+    }
+    return handle_response(endpoint, payload)
+
+
 def parsed_article_content(article: str) -> str:
     return f"""
 <strong>{article.title}</strong>\n
-{article.description}\n
+{has_description(article)}
 📣 <strong>{article.source.title()} · {parse_date(article.date_published)} · <a href="{article.url}">Read More</a></strong>
     """
 
@@ -60,7 +72,9 @@ Stock Symbol: <strong>{stock.stock_symbol}</strong>
 
 
 def publish_stock(the_stock):
-    if pdf_url_resolves(the_stock.pdf):
+    from const import PDF_URL
+    pdf_url = PDF_URL + the_stock.pdf
+    if media_url_resolves(pdf_url):
         send_with_pdf(the_stock)
         mark_as_published(the_stock)
     else:
@@ -69,5 +83,10 @@ def publish_stock(the_stock):
 
 
 def publish_article(the_article):
-    send_only_article(the_article)
-    mark_as_published(the_article)
+    image_url = the_article.image_url
+    if media_url_resolves(image_url):
+        send_with_photo(the_article)
+        mark_as_published(the_article)
+    else:
+        send_only_article(the_article)
+        mark_as_published(the_article)
