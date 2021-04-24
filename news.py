@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 from dateutil import parser as ps
 
-from const import NEWS_URL_BM
+from const import NEWS_URL_BM, NEWS_URL_ML
 from telegram import publish_article
 from utils import bleach, fix_last_dharko, merge_sources
 
@@ -52,6 +52,36 @@ def bizmandu():
             "date_published": date,
             "description": fix_last_dharko(bleach(description)),
             "image_url": None,
+            "lang": "nepali",
+            "source": source,
+            "title": bleach(title),
+            "url": url,
+        }
+
+        articles.append(the_article)
+
+    return articles
+
+
+def merolagani():
+    source = 'merolagani'
+    soup = scrape_articles(NEWS_URL_ML)
+    container = soup.select('div.media-news')
+    articles = []
+
+    for article in container:
+        # dont touch! just witness the magic
+        raw_url = article.find('a')['href']
+        url = f'https://{source}.com{raw_url}'
+        title = article.select('h4.media-title > a')[0].text.strip()
+        image_url = article.find('img')['src']
+        raw_date = article.select('span.media-label')[0].text.strip()
+        date = ps.parse(raw_date)
+
+        the_article = {
+            "date_published": date,
+            "description": None,
+            "image_url": image_url,
             "lang": "nepali",
             "source": source,
             "title": bleach(title),
