@@ -3,27 +3,27 @@ from utils import (handle_response, has_description, is_rightshare,
                    mark_as_published, parse_date, parse_miti, media_url_resolves)
 
 
-def send_only_content(stock_detail: str):
+def send_only_content(stock: str):
     endpoint = TELEGRAM_URL + 'sendMessage'
     payload = {
         'chat_id': CHANNEL,
-        'text': parsed_stock_content(stock_detail),
+        'text': parsed_stock_content(stock),
         'disable_web_page_preview': 'true',
         'parse_mode': 'HTML'
     }
-    return handle_response(endpoint, payload)
+    return handle_response(endpoint, payload, True, stock.id)
 
 
-def send_with_pdf(stock_detail: str):
+def send_with_pdf(stock: str):
     endpoint = TELEGRAM_URL + 'sendDocument'
-    pdf = PDF_URL + stock_detail.pdf
+    pdf = PDF_URL + stock.pdf
     payload = {
         'chat_id': CHANNEL,
         'document': pdf,
-        'caption': parsed_stock_content(stock_detail),
+        'caption': parsed_stock_content(stock),
         'parse_mode': 'HTML'
     }
-    return handle_response(endpoint, payload)
+    return handle_response(endpoint, payload, True, stock.id)
 
 
 def send_only_article(article: str):
@@ -97,6 +97,7 @@ def reminding_content(stock: str) -> str:
 <strong>Reminder!</strong>
 
 Don't forget to apply for this {stock.stock_type} tomorrow😊.
+<strong>{stock.company_name} | {stock.stock_symbol}</strong>
 """
 
 
@@ -113,10 +114,9 @@ def publish_stock(the_stock):
 
 def remind_and_pin(the_stock) -> bool:
     if the_stock.chat.message_id:
-        send_reminder()
-        pin_message()
+        send_reminder(the_stock)
+        pin_message(the_stock)
         return True
-    return False
 
 
 def publish_article(the_article):
