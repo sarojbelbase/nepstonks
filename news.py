@@ -113,7 +113,7 @@ def main():
             publish_article(the_article)
         from models import session
         session.commit()
-    return {"ok": "true"}
+        return {"ok": "true"}
 
 
 if __name__ == '__main__':
