@@ -30,8 +30,8 @@ class Stock(BaseModel):
     units = Column(String(), nullable=True)
     is_published = Column(Boolean(), default=False)
     stock_added_at = Column(DateTime(), default=datetime.utcnow)
-    message = relationship('Telegram', uselist=False,
-                           back_populates="stock")
+    chat = relationship('Telegram', backref='stock', uselist=False,
+                        lazy=True, cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'{self.company_name}({self.stock_type})'
