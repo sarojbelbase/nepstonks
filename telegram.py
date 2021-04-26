@@ -73,7 +73,8 @@ def pin_message(stock: str):
 
 def parsed_article_content(article: str) -> str:
     return f"""
-<strong>{article.title}</strong>\n
+<strong>{article.title}</strong>
+
 {has_description(article)}
 📣 <strong>{article.source.title()} · {parse_date(article.date_published)} · <a href="{article.url}">Read More</a></strong>
 """
@@ -98,6 +99,7 @@ def reminding_content(stock: str) -> str:
 
 Don't forget to apply for this {stock.stock_type} tomorrow😊.
 <strong>{stock.company_name} | {stock.stock_symbol}</strong>
+{is_rightshare(stock)}
 """
 
 

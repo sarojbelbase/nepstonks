@@ -58,8 +58,7 @@ def is_rightshare(stock: str) -> str:
 
 def has_description(article: str) -> str:
     # if the article has description return description else None
-    desc = f'{article.description}'
-    return desc if article.description else ''
+    return article.description if article.description else ''
 
 
 def media_url_resolves(media_url: str) -> bool:
