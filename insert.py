@@ -1,11 +1,12 @@
 from sqlalchemy.orm import Query
 
 from fetch import latest_stocks
-from models import News, Stock, session
+from models import News, Stock, Telegram, session
 from news import latest_articles
 
-StockTable = Query(Stock, session)
 NewsTable = Query(News, session)
+StockTable = Query(Stock, session)
+TelegramTable = Query(Telegram, session)
 
 
 def add_stock():
@@ -75,9 +76,17 @@ def unsent_stocks():
 def upcoming_stocks():
     from datetime import date, timedelta
     # lists all stock that are one day far from being available to apply
-    one_day_far = date.today() - timedelta(days=1)
+    one_day_far = date.today() + timedelta(days=1)
     return StockTable.filter(Stock.start_date == one_day_far).order_by(Stock.start_date.desc()).all()
 
 
 def unsent_articles():
     return NewsTable.filter(News.is_published == False).order_by(News.date_published.desc()).all()
+
+
+def insert_message_id(stock_id: int, message_id: int) -> None:
+    the_stock = StockTable.filter(Stock.id == stock_id).first()
+    if the_stock and message_id:
+        chat = Telegram(stock=the_stock, message_id=message_id)
+        session.add(chat)
+        session.commit()

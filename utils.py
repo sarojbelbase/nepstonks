@@ -58,8 +58,7 @@ def is_rightshare(stock: str) -> str:
 
 def has_description(article: str) -> str:
     # if the article has description return description else None
-    desc = f'{article.description}\n'
-    return desc if article.description else ''
+    return article.description if article.description else ''
 
 
 def media_url_resolves(media_url: str) -> bool:
@@ -79,14 +78,19 @@ def media_url_resolves(media_url: str) -> bool:
         return False
 
 
-def handle_response(the_url, payload):
+def handle_response(the_url, payload, *args):
     # handles telegram bot requests and raise if it can't
     try:
-        response = requests.post(the_url, data=payload)
-        response.raise_for_status()
-        return print(response.content.decode())
+        req = requests.post(the_url, data=payload)
+        res = req.json()
+        if True in args:
+            if res['ok']:
+                _, stock_id = args
+                msg_id = res['result']['message_id']
+                from insert import insert_message_id
+                insert_message_id(stock_id, msg_id)
     except requests.exceptions.HTTPError as error:
-        return print(error.response.text)
+        return print(error.response.json())
 
 
 def merge_sources(*sources: list) -> List[Dict]:
