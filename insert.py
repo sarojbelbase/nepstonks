@@ -72,5 +72,12 @@ def unsent_stocks():
     return StockTable.filter(Stock.is_published == False).order_by(Stock.start_date.desc()).all()
 
 
+def upcoming_stocks():
+    from datetime import date, timedelta
+    # lists all stock that are one day far from being available to apply
+    one_day_far = date.today() - timedelta(days=1)
+    return StockTable.filter(Stock.start_date == one_day_far).order_by(Stock.start_date.desc()).all()
+
+
 def unsent_articles():
     return NewsTable.filter(News.is_published == False).order_by(News.date_published.desc()).all()
