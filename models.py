@@ -1,9 +1,9 @@
 from datetime import datetime
 from os import path
 
-from sqlalchemy import Boolean, Column, Date, DateTime, Integer, String, Text, create_engine
+from sqlalchemy import Boolean, Column, Date, DateTime, ForeignKey, Integer, String, Text, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, relationship
 
 from const import DATABASE_URI
 
@@ -30,9 +30,21 @@ class Stock(BaseModel):
     units = Column(String(), nullable=True)
     is_published = Column(Boolean(), default=False)
     stock_added_at = Column(DateTime(), default=datetime.utcnow)
+    message = relationship('Telegram', uselist=False,
+                           back_populates="stock")
 
     def __repr__(self):
         return f'{self.company_name}({self.stock_type})'
+
+
+class Telegram(BaseModel):
+    __tablename__ = 'telegram'
+    id = Column(Integer(), primary_key=True)
+    message_id = Column(Integer(), nullable=False)
+    stock_id = Column(Integer(), ForeignKey('stock.id'))
+
+    def __repr__(self):
+        return f'Message: {self.message_id} Stock: {self.stock_id}'
 
 
 class News(BaseModel):
@@ -52,6 +64,7 @@ class News(BaseModel):
         return f'{self.title}({self.source})'
 
 
-# To create a new database with models specified above if db doesn't exist
-if not path.isfile(DATABASE_URI):
-    BaseModel.metadata.create_all(engine)
+if __name__ == '__main__':
+    # To create a new database with models specified above if db doesn't exist
+    if not path.isfile(DATABASE_URI):
+        BaseModel.metadata.create_all(engine)
