@@ -51,12 +51,32 @@ def send_with_photo(article: str):
     return handle_response(endpoint, payload)
 
 
+def send_reminder(stock: str):
+    endpoint = TELEGRAM_URL + 'sendMessage'
+    payload = {
+        'chat_id': CHANNEL,
+        'text': reminding_content(stock),
+        'reply_to_message_id': stock.chat.message_id,
+        'parse_mode': 'HTML'
+    }
+    return handle_response(endpoint, payload)
+
+
+def pin_message(stock: str):
+    endpoint = TELEGRAM_URL + 'pinChatMessage'
+    payload = {
+        'chat_id': CHANNEL,
+        'message_id': stock.chat.message_id,
+    }
+    return handle_response(endpoint, payload)
+
+
 def parsed_article_content(article: str) -> str:
     return f"""
 <strong>{article.title}</strong>\n
 {has_description(article)}
 📣 <strong>{article.source.title()} · {parse_date(article.date_published)} · <a href="{article.url}">Read More</a></strong>
-    """
+"""
 
 
 def parsed_stock_content(stock: str) -> str:
@@ -69,7 +89,15 @@ End Date: <strong>{parse_miti(stock.end_date)} / {parse_date(stock.end_date)}</s
 Stock Type: <strong>{stock.stock_type}</strong>
 {is_rightshare(stock)}
 Stock Symbol: <strong>{stock.stock_symbol}</strong>
-    """
+"""
+
+
+def reminding_content(stock: str) -> str:
+    return f"""
+<strong>Reminder!</strong>
+
+Don't forget to apply for this {stock.stock_type} tomorrow😊.
+"""
 
 
 def publish_stock(the_stock):
@@ -81,6 +109,14 @@ def publish_stock(the_stock):
     else:
         send_only_content(the_stock)
         mark_as_published(the_stock)
+
+
+def remind_and_pin(the_stock) -> bool:
+    if the_stock.chat.message_id:
+        send_reminder()
+        pin_message()
+        return True
+    return False
 
 
 def publish_article(the_article):
