@@ -45,9 +45,11 @@ def scraped_stocks(category_id: int):
         'Referer': REFERER,
         'DNT': '1',
     }
-
-    response = requests.post(API_URL, headers=headers, json=json)
-    return response.json()['d']
+    try:
+        response = requests.post(API_URL, headers=headers, json=json)
+        return response.json()['d']
+    except requests.exceptions.ConnectionError as e:
+        return print("Looks like the stock API did an oopsie:\n", e)
 
 
 def latest_stocks() -> List[Dict]:
