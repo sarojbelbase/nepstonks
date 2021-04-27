@@ -7,7 +7,7 @@ def send_only_content(stock: str):
     endpoint = TELEGRAM_URL + 'sendMessage'
     payload = {
         'chat_id': CHANNEL,
-        'text': parsed_stock_content(stock),
+        'text': stock_content(stock),
         'disable_web_page_preview': 'true',
         'parse_mode': 'HTML'
     }
@@ -20,7 +20,7 @@ def send_with_pdf(stock: str):
     payload = {
         'chat_id': CHANNEL,
         'document': pdf,
-        'caption': parsed_stock_content(stock),
+        'caption': stock_content(stock),
         'parse_mode': 'HTML'
     }
     return handle_response(endpoint, payload, True, stock.id)
@@ -30,7 +30,7 @@ def send_only_article(article: str):
     endpoint = TELEGRAM_URL + 'sendMessage'
     payload = {
         'chat_id': CHANNEL,
-        'text': parsed_article_content(article),
+        'text': article_content(article),
         'disable_web_page_preview': 'true',
         'disable_notification': 'true',
         'parse_mode': 'HTML'
@@ -43,7 +43,7 @@ def send_with_photo(article: str):
     payload = {
         'chat_id': CHANNEL,
         'photo': article.image_url,
-        'caption': parsed_article_content(article),
+        'caption': article_content(article),
         'disable_web_page_preview': 'true',
         'disable_notification': 'true',
         'parse_mode': 'HTML'
@@ -71,7 +71,7 @@ def pin_message(stock: str):
     return handle_response(endpoint, payload)
 
 
-def parsed_article_content(article: str) -> str:
+def article_content(article: str) -> str:
     return f"""
 <strong>{article.title}</strong>
 
@@ -80,9 +80,10 @@ def parsed_article_content(article: str) -> str:
 """
 
 
-def parsed_stock_content(stock: str) -> str:
+def stock_content(stock: str) -> str:
     return f"""
-📣 <strong>New Upcoming {stock.stock_type} Alert!</strong> 🆕\n
+🆕 <strong>New Upcoming {stock.stock_type} Alert!</strong>
+
 <strong>{stock.company_name}</strong>
 Issued By: <strong>{stock.issued_by}</strong>
 Start Date: <strong>{parse_miti(stock.start_date)} / {parse_date(stock.start_date)}</strong>
