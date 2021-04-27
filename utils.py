@@ -84,13 +84,14 @@ def handle_response(the_url, payload, *args):
         req = requests.post(the_url, data=payload)
         res = req.json()
         if True in args:
-            if res['ok']:
+            if res['ok'] and req.status_code == 200:
                 _, stock_id = args
                 msg_id = res['result']['message_id']
-                from insert import insert_message_id
-                insert_message_id(stock_id, msg_id)
+                from insert import add_chat
+                add_chat(stock_id, msg_id)
+        return print(req.content)
     except requests.exceptions.HTTPError as error:
-        return print(error.response.json())
+        return print("Looks like the telegram API did an oopsie:\n", error.response.json())
 
 
 def merge_sources(*sources: list) -> List[Dict]:
