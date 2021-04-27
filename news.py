@@ -19,11 +19,11 @@ def scrape_articles(url: str):
     }
     try:
         response = requests.get(url, headers=headers)
-    except Exception as error:
-        print("Cannot connect to the server.", error)
-    content = response.text.encode('utf-8')
-    soup = bs(content, parser)
-    return soup
+        content = response.text.encode('utf-8')
+        soup = bs(content, parser)
+        return soup
+    except requests.exceptions.ConnectionError as e:
+        return print("Looks like the news API did an oopsie:\n", e)
 
 
 # sources section: the article sources will be in this section organized by function names
