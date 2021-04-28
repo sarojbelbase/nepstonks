@@ -13,8 +13,8 @@ def add_and_publish_stocks():
         the_list = unpublished_stocks[::-1]
         for the_stock in the_list:
             publish_stock(the_stock)
-        # from models import session
-        # session.commit()
+        from models import session
+        session.commit()
         return {"ok": "true"}
 
 
