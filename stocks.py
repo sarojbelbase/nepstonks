@@ -21,7 +21,7 @@ def add_and_publish_stocks():
 def remind_about_the_stock():
     upcoming_issues = list(upcoming_stocks())
     if len(upcoming_issues) > 0:
-        for issue in upcoming_issues[::-1]:
+        for issue in upcoming_issues:
             remind_and_pin(issue)
         return {"ok": "true"}
 
