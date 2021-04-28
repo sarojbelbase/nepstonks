@@ -6,7 +6,7 @@ from dateutil import parser as ps
 
 from const import NEWS_URL_BM, NEWS_URL_ML
 from telegram import publish_article
-from utils import bleach, fix_last_dharko, merge_sources
+from utils import fix_last_dharko, merge_sources, replace_this
 
 
 # scrape section: a function that starts the scraping engine
@@ -30,7 +30,7 @@ def scrape_articles(url: str):
 
 def bizmandu():
     source = 'bizmandu'
-    first_word = "काठमाडौं।"
+    first_word = "^काठमाडौं['\s']?[।]?"
     soup = scrape_articles(NEWS_URL_BM)
     container = soup.find("ul", attrs={'class': "uk-list"}).find_all("li")
     articles = []
@@ -39,22 +39,19 @@ def bizmandu():
         # dont touch! just witness the magic
         url = article.find('a')['href']
         title = article.find('h3').text.strip()
-        paragraph = article.find('p', text=re.compile(
-            first_word), _class=False, id=False)
-        desc_one = paragraph.get_text().split(first_word)[1].strip()
-        desc_two = paragraph.findNext('p').text.strip()
-        description = f'{desc_one} {desc_two}'
-        raw_date = article.find(
-            'p', {'class': 'uk-article-meta'}).text.strip()
+        lines = article.find_all('p', {'class': False, 'id': False})
+        excerpt = ' '.join([line.text.strip() for line in lines]).strip()
+        description = replace_this(first_word, excerpt)
+        raw_date = article.select_one('p.uk-article-meta').text.strip()
         date = ps.parse(raw_date.split('बिजमाण्डू')[1].strip())
 
         the_article = {
             "date_published": date,
-            "description": fix_last_dharko(bleach(description)),
+            "description": fix_last_dharko(description),
             "image_url": None,
             "lang": "nepali",
             "source": source,
-            "title": bleach(title),
+            "title": title,
             "url": url,
         }
 
@@ -84,7 +81,7 @@ def merolagani():
             "image_url": image_url,
             "lang": "nepali",
             "source": source,
-            "title": bleach(title),
+            "title": title,
             "url": url,
         }
 
@@ -101,6 +98,7 @@ def latest_articles():
 
 def main():
     from insert import add_article, unsent_articles
+
     # fetch and store new articles before publishing to the channel
     add_article()
 
@@ -117,4 +115,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    print(bizmandu())

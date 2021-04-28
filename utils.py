@@ -1,16 +1,13 @@
 import re
 from datetime import date
 from typing import Dict, List
-from unicodedata import normalize
 
 import requests
 from nepali_datetime import date as nepdate
 
 
-def bleach(given_text: str) -> str:
-    # replaces line breaks and extra spaces
-    extra_space = normalize('NFKD', given_text)
-    return extra_space.replace('\n', '')
+def replace_this(substring: str, from_given_text: str) -> str:
+    return re.sub(substring, '', from_given_text).strip()
 
 
 def fix_last_dharko(given_text: str) -> str:
