@@ -123,8 +123,8 @@ def remind_and_pin(the_stock) -> bool:
 def publish_article(the_article):
     image_url = the_article.image_url
     if media_url_resolves(image_url):
-        if send_with_photo(the_article):
-            mark_as_published(the_article)
+        send_with_photo(the_article)
+        mark_as_published(the_article)
     else:
-        if send_only_article(the_article):
-            mark_as_published(the_article)
+        send_only_article(the_article)
+        mark_as_published(the_article)
