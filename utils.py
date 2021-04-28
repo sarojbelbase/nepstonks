@@ -80,13 +80,14 @@ def handle_response(the_url, payload, *args):
     try:
         req = requests.post(the_url, data=payload)
         res = req.json()
-        if True in args:
-            if res['ok'] and req.status_code == 200:
+        if req.status_code == 200:
+            if True in args:
                 _, stock_id = args
-                msg_id = res['result']['message_id']
                 from insert import add_chat
-                add_chat(stock_id, msg_id)
-        return print(req.content)
+                return add_chat(stock_id, res['result']['message_id'])
+            print(res.json())
+            return True
+        return print("Sorry the telegram API didn't treat us good:\n", res)
     except requests.exceptions.HTTPError as error:
         return print("Looks like the telegram API did an oopsie:\n", error.response.json())
 
