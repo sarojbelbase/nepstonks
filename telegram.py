@@ -76,6 +76,7 @@ def article_content(article: str) -> str:
 <strong>{article.title}</strong>
 
 {has_description(article)}
+
 📣 <strong>{article.source.title()} · {parse_date(article.date_published)} · <a href="{article.url}">Read More</a></strong>
 """
 
