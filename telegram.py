@@ -72,8 +72,7 @@ def pin_message(stock: str):
 
 
 def article_content(article: str) -> str:
-    return f"""
-<strong>{article.title}</strong>
+    return f"""<strong>{article.title}</strong>
 
 {has_description(article)}
 
@@ -82,8 +81,7 @@ def article_content(article: str) -> str:
 
 
 def stock_content(stock: str) -> str:
-    return f"""
-🆕 <strong>New Upcoming {stock.stock_type} Alert!</strong>
+    return f"""🆕 <strong>New Upcoming {stock.stock_type} Alert!</strong>
 
 <strong>{stock.company_name}</strong>
 Issued By: <strong>{stock.issued_by}</strong>
@@ -96,8 +94,7 @@ Stock Symbol: <strong>{stock.stock_symbol}</strong>
 
 
 def reminding_content(stock: str) -> str:
-    return f"""
-<strong>Reminder!</strong>
+    return f"""<strong>Reminder!</strong>
 
 Don't forget to apply for this {stock.stock_type} tomorrow😊.
 <strong>{stock.company_name} | {stock.stock_symbol}</strong>
@@ -109,11 +106,11 @@ def publish_stock(the_stock):
     from const import PDF_URL
     pdf_url = PDF_URL + the_stock.pdf
     if media_url_resolves(pdf_url):
-        send_with_pdf(the_stock)
-        mark_as_published(the_stock)
+        if send_with_pdf(the_stock):
+            mark_as_published(the_stock)
     else:
-        send_only_content(the_stock)
-        mark_as_published(the_stock)
+        if send_only_content(the_stock):
+            mark_as_published(the_stock)
 
 
 def remind_and_pin(the_stock) -> bool:
@@ -126,8 +123,8 @@ def remind_and_pin(the_stock) -> bool:
 def publish_article(the_article):
     image_url = the_article.image_url
     if media_url_resolves(image_url):
-        send_with_photo(the_article)
-        mark_as_published(the_article)
+        if send_with_photo(the_article):
+            mark_as_published(the_article)
     else:
-        send_only_article(the_article)
-        mark_as_published(the_article)
+        if send_only_article(the_article):
+            mark_as_published(the_article)
