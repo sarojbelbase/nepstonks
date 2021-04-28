@@ -62,7 +62,11 @@ def add_article():
 def add_chat(stock_id: int, message_id: int):
     the_stock = StockTable.filter(Stock.id == stock_id).first()
     if the_stock and message_id:
-        chat = Telegram(stock=the_stock, message_id=message_id)
+        chat = \
+            Telegram(
+                stock=the_stock,
+                message_id=message_id
+            )
         session.add(chat)
         session.commit()
 
