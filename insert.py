@@ -59,7 +59,7 @@ def add_article():
         session.commit()
 
 
-def add_chat(stock_id: int, message_id: int):
+def add_chat(stock_id: int, message_id: int) -> bool:
     the_stock = StockTable.filter(Stock.id == stock_id).first()
     if the_stock and message_id:
         chat = \
@@ -69,6 +69,8 @@ def add_chat(stock_id: int, message_id: int):
             )
         session.add(chat)
         session.commit()
+        return True
+    return False
 
 
 def unsent_stocks():
