@@ -93,7 +93,7 @@ def merolagani():
 # main section: combines all required functions and executes them
 
 def latest_articles():
-    return merge_sources(bizmandu(), merolagani())
+    return merge_sources(bizmandu())
 
 
 def main():
