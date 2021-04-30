@@ -40,15 +40,15 @@ def parse_miti(given_date: date) -> str:
 
 
 def parse_date(given_date: date) -> str:
-    return given_date.strftime('%B %d')
+    return given_date.strftime('%b %d')
 
 
 def is_rightshare(stock: str) -> str:
     # if its right share it publishes both units & ratio else publish units only
-    units = f"Units: <strong>{stock.units}</strong>"
-    ratio = f"Ratio: <strong>{stock.ratio}</strong>"
+    units = f"Total Units: {stock.units}"
+    ratio = f"Ratio: {stock.ratio}"
     if stock.ratio:
-        return f"{units}\n{ratio}"
+        return f"{units}, {ratio}"
     else:
         return units
 
