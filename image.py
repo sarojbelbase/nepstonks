@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 
-from utils import is_rightshare, parse_date, parse_miti
+from utils import break_this, is_rightshare, parse_date, parse_miti
 
 
 def generate(issues: list):
@@ -14,7 +14,7 @@ def generate(issues: list):
     for issue in issues:
         template = Image.open('media/t.png')
         draw = ImageDraw.Draw(template)
-        
+
         drow(
             text=f"New Upcoming {issue.stock_type} Alert!",
             size=56,
@@ -25,7 +25,7 @@ def generate(issues: list):
         )
 
         drow(
-            text=fix(issue.company_name),
+            text=break_this(issue.company_name),
             size=78,
             fill='#ffffff',
             y=165,
