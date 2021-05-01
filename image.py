@@ -12,7 +12,7 @@ def generate(issues: list):
         return draw.text(xy=(x, y), font=font, text=text, fill=fill, **kwargs)
 
     for issue in issues:
-        template = Image.open('media/t.png')
+        template = Image.open('media/template.png')
         draw = ImageDraw.Draw(template)
 
         drow(
