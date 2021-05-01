@@ -34,24 +34,41 @@ def generate(issues: list):
             align="center"
         )
 
+        # this
         drow(
-            text=f"{parse_miti(issue.start_date)}\n{parse_date(issue.start_date)}",
+            text=f"{parse_miti(issue.start_date)}",
             size=56,
             fill='#fea538',
             x=295,
             y=432,
-            draw=draw,
-            align="right"
+            draw=draw
         )
 
         drow(
-            text=f"{parse_miti(issue.end_date)}\n{parse_date(issue.end_date)}",
+            text=f"{parse_date(issue.start_date)}",
+            size=56,
+            fill='#fea538',
+            x=295,
+            y=485,
+            draw=draw
+        )
+
+        drow(
+            text=f"{parse_miti(issue.end_date)}",
             size=56,
             fill='#f25c74',
-            x=585,
+            x=615,
             y=432,
-            draw=draw,
-            align="left"
+            draw=draw
+        )
+
+        drow(
+            text=f"{parse_date(issue.end_date)}",
+            size=56,
+            fill='#f25c74',
+            x=615,
+            y=485,
+            draw=draw
         )
 
         drow(
@@ -72,4 +89,4 @@ def generate(issues: list):
             align="center"
         )
 
-        template.save(f'{issue.stock_symbol.lower()}.png')
+        template.save(f'{issue.stock_symbol}.PNG')
