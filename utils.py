@@ -97,3 +97,11 @@ def merge_sources(*sources: list) -> List[Dict]:
     for item in sources:
         new_list += item
     return new_list
+
+
+def break_this(given_text: str) -> str:
+    text = given_text.split()
+    for i in range(0, len(text), 3):
+        if i != 0:
+            text[i-1] = f"{text[i-1]}\n"
+    return ' '.join(text)
