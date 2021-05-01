@@ -10,7 +10,8 @@ def add_and_publish_stocks():
     if len(unpublished_stocks) > 0:
         from image import generate
         from models import session
-        generate(unpublished_stocks)
+        for the_stock in unpublished_stocks:
+            generate(the_stock)
         session.commit()
         return print(f"published {len(unpublished_stocks)} stocks")
 
