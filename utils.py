@@ -40,7 +40,7 @@ def parse_miti(given_date: date) -> str:
 
 
 def parse_date(given_date: date) -> str:
-    return given_date.strftime('%b %d')
+    return given_date.strftime('%B %d')
 
 
 def is_rightshare(stock: str) -> str:
