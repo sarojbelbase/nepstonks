@@ -1,40 +1,75 @@
-from PIL.Image import open
-from PIL.ImageDraw import Draw
-from PIL.ImageFont import truetype
+from PIL import Image, ImageDraw, ImageFont
 
 from utils import is_rightshare, parse_date, parse_miti
 
-template = open('media/t.png')
 
+def generate(issues: list):
 
-def drow(text, size, fill, y, x=None, **kwargs):
-    font = truetype('media/regular.ttf', size)
-    draw = Draw(template)
-    w, _ = draw.textsize(text, font)
-    x = (template.width - w) / 2 if x is None else x
-    draw.text(xy=(x, y),
-              font=font, text=text, fill=fill, **kwargs)
+    def drow(text, size, fill, y, draw, x=None, **kwargs):
+        font = ImageFont.truetype('media/regular.ttf', size)
+        w, _ = draw.textsize(text, font)
+        x = (template.width - w) / 2 if x is None else x
+        return draw.text(xy=(x, y), font=font, text=text, fill=fill, **kwargs)
 
+    for issue in issues:
+        template = Image.open('media/t.png')
+        draw = ImageDraw.Draw(template)
+        
+        drow(
+            text=f"New Upcoming {issue.stock_type} Alert!",
+            size=56,
+            fill='#fea538',
+            y=46,
+            align="center",
+            draw=draw,
+        )
 
-def fix(given_text):
-    text = given_text.split()
-    for i in range(0, len(text), 3):
-        if i != 0:
-            text[i-1] = f"{text[i-1]}\n"
-    return ' '.join(text)
+        drow(
+            text=fix(issue.company_name),
+            size=78,
+            fill='#ffffff',
+            y=165,
+            spacing=20,
+            draw=draw,
+            align="center"
+        )
 
+        drow(
+            text=f"{parse_miti(issue.start_date)}\n{parse_date(issue.start_date)}",
+            size=56,
+            fill='#fea538',
+            x=295,
+            y=432,
+            draw=draw,
+            align="right"
+        )
 
-def gen_image(issue):
-    title = drow(f"New Upcoming {issue.stock_type} Alert!",
-                 56, '#fea538', 46, align="center")
-    name = drow(fix(issue.company_name),
-                78, '#ffffff', 165, spacing=20, align="center")
-    opening_date = drow(f"{parse_miti(issue.start_date)}\n{parse_date(issue.start_date)}",
-                        size=56, fill='#fea538', x=295, y=432, align="right")
-    closing_date = drow(f"{parse_miti(issue.end_date)} / {parse_date(issue.end_date)}",
-                        size=56, fill='#f25c74', x=585, y=432, align="left")
-    units = drow(is_rightshare(issue),
-                 size=42, fill='#141414', y=592, align="center")
-    issued = drow(f"SCRIP: {issue.stock_symbol}, ISSUED BY {issue.issued_by}",
-                  size=38, fill='#ffffff', y=864, align="center")
-    template.save(f'{issue.stock_symbol.lower()}.png')
+        drow(
+            text=f"{parse_miti(issue.end_date)}\n{parse_date(issue.end_date)}",
+            size=56,
+            fill='#f25c74',
+            x=585,
+            y=432,
+            draw=draw,
+            align="left"
+        )
+
+        drow(
+            text=is_rightshare(issue),
+            size=42,
+            fill='#141414',
+            y=592,
+            draw=draw,
+            align="center"
+        )
+
+        drow(
+            text=f"SCRIP: {issue.stock_symbol}, ISSUED BY {issue.issued_by}",
+            size=38,
+            fill='#ffffff',
+            y=864,
+            draw=draw,
+            align="center"
+        )
+
+        template.save(f'{issue.stock_symbol.lower()}.png')
