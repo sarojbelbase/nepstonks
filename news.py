@@ -1,5 +1,3 @@
-import re
-
 import requests
 from bs4 import BeautifulSoup as bs
 from dateutil import parser as ps
@@ -104,14 +102,14 @@ def main():
 
     unpublished_articles = list(unsent_articles())
     if len(unpublished_articles) > 0:
+        from models import session
         # articles that are older has to be published first
         # making the latest ones to be after the older ones
         the_list = unpublished_articles[::-1]
         for the_article in the_list:
             publish_article(the_article)
-        from models import session
         session.commit()
-        return {"ok": "true"}
+        return print(f"published {len(unpublished_articles)} articles")
 
 
 if __name__ == '__main__':
