@@ -58,12 +58,6 @@ def has_description(article: str) -> str:
     return article.description if article.description else ''
 
 
-def has_pdf_url(stock: str) -> str:
-    # some issue might not upload the related pdf
-    content = f'🖨️ <strong><a href="{stock.pdf_url}">View In Details</a></strong>'
-    return content if stock.pdf_url else ''
-
-
 def media_url_resolves(media_url: str) -> bool:
     """Checks if the given media url resolves (if it has the media)
 

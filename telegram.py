@@ -1,7 +1,7 @@
 from const import CHANNEL, TELEGRAM_URL
 from utils import (flush_the_image, handle_response, has_description,
-                   has_pdf_url, is_rightshare, mark_as_published,
-                   media_url_resolves, parse_date)
+                   is_rightshare, mark_as_published, media_url_resolves,
+                   parse_date)
 
 
 def send_this_stock(stock: str):
@@ -71,9 +71,9 @@ def article_content(article: str) -> str:
 
 
 def stock_content(stock: str) -> str:
-    return f"""<strong>#Stock #{stock.stock_type} #{stock.scrip}</strong>
-{has_pdf_url(stock)}
-"""
+    without_pdf = f"<strong>#Stock #{stock.stock_type} #{stock.scrip}</strong>"
+    with_pdf = f'<strong><a href="{stock.pdf_url}">View PDF</a></strong>'
+    return f'{without_pdf} · {with_pdf}' if stock.pdf_url else without_pdf
 
 
 def reminding_content(stock: str) -> str:
