@@ -21,7 +21,7 @@ class Stock(BaseModel):
     closing_date = Column(Date(), nullable=False)
     investment_id = Column(Integer(), nullable=False)
     issued_by = Column(String(), nullable=False)
-    pdf = Column(String(), nullable=True)
+    pdf_url = Column(String(), nullable=True)
     ratio = Column(String(), nullable=True)
     opening_date = Column(Date(), nullable=False)
     stock_id = Column(Integer(), nullable=False)

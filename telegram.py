@@ -72,7 +72,7 @@ def article_content(article: str) -> str:
 
 def stock_content(stock: str) -> str:
     return f"""<strong>#Stock #{stock.stock_type} #{stock.scrip}</strong>
-🖨️ <strong><a href="{PDF_URL+ stock.pdf }">View In Details</a></strong>
+🖨️ <strong><a href="{stock.pdf_url}">View In Details</a></strong>
 """
 
 

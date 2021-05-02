@@ -61,7 +61,7 @@ def latest_stocks() -> List[Dict]:
                 'closing_date': parse(stock['EndDateString']).date(),
                 'investment_id': stock['InvestmentID'],
                 'issued_by': stock['IssueManager'],
-                'pdf': stock['DescriptionPdf'],
+                'pdf_url': stock['DescriptionPdf'],
                 'ratio': stock['Ratio'],
                 'opening_date': parse(stock['StartDateString']).date(),
                 'stock_id': stock['CategoryID'],

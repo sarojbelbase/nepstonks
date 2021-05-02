@@ -24,7 +24,7 @@ def add_stock():
                         closing_date=the_stock['closing_date'],
                         investment_id=the_stock['investment_id'],
                         issued_by=the_stock['issued_by'],
-                        pdf=the_stock['pdf'],
+                        pdf_url=the_stock['pdf_url'],
                         ratio=the_stock['ratio'],
                         opening_date=the_stock['opening_date'],
                         stock_id=the_stock['stock_id'],
