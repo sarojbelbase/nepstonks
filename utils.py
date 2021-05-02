@@ -87,7 +87,7 @@ def handle_response(the_url, payload, **kwargs):
         if req.status_code == 200:
             if kwargs:
                 from insert import add_chat
-                return add_chat(kwargs['stock_id'], res['result']['message_id'])
+                add_chat(kwargs['stock_id'], res['result']['message_id'])
             print(req.json())
             return True
         return print("Sorry the telegram API didn't treat us good:\n", res)
