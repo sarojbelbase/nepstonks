@@ -75,16 +75,15 @@ def media_url_resolves(media_url: str) -> bool:
         return False
 
 
-def handle_response(the_url, payload, *args):
+def handle_response(the_url, payload, **kwargs):
     # handles telegram bot requests and raise if it can't
     try:
-        req = requests.post(the_url, data=payload)
+        req = requests.post(the_url, data=payload, files=kwargs['files'])
         res = req.json()
         if req.status_code == 200:
-            if True in args:
-                _, stock_id = args
+            if kwargs['record_response']:
                 from insert import add_chat
-                return add_chat(stock_id, res['result']['message_id'])
+                return add_chat(kwargs['stock_id'], res['result']['message_id'])
             print(req.json())
             return True
         return print("Sorry the telegram API didn't treat us good:\n", res)
