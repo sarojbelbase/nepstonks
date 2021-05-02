@@ -104,3 +104,14 @@ def break_this(given_text: str) -> str:
         if i != 0:
             text[i-1] = f"{text[i-1]}\n"
     return ' '.join(text)
+
+
+def flush_the_image(issue):
+    from const import current_dir
+    from os import path, remove
+    picture = current_dir / f'{issue.stock_symbol}.PNG'
+    if path.exists(picture):
+        remove(picture)
+        return True
+    else:
+        return False
