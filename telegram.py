@@ -79,9 +79,9 @@ def stock_content(stock: str) -> str:
 def reminding_content(stock: str) -> str:
     return f"""<strong>Reminder!</strong>
 
-<strong><em>Don't forget to apply for this {stock.stock_type} today</em></strong>😊
-<strong>{stock.company_name} | {stock.scrip}</strong>
-{is_rightshare(stock)}
+<strong>Don't forget to apply for this {stock.stock_type} today.😊</strong>
+<strong>{stock.company_name}</strong>
+<strong>{is_rightshare(stock)}</strong>
 """
 
 
