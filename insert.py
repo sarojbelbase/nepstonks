@@ -28,7 +28,7 @@ def add_stock():
                         ratio=the_stock['ratio'],
                         start_date=the_stock['start_date'],
                         stock_id=the_stock['stock_id'],
-                        stock_symbol=the_stock['stock_symbol'],
+                        scrip=the_stock['scrip'],
                         stock_type=the_stock['stock_type'],
                         units=the_stock['units']
                     )

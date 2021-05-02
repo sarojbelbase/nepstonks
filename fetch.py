@@ -65,7 +65,7 @@ def latest_stocks() -> List[Dict]:
                 'ratio': stock['Ratio'],
                 'start_date': parse(stock['StartDateString']).date(),
                 'stock_id': stock['CategoryID'],
-                'stock_symbol': stock['StockSymbol'],
+                'scrip': stock['StockSymbol'],
                 'stock_type': stock['CategoryName'],
                 'units': get_units(stock['ShareType']),
             }

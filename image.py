@@ -89,7 +89,7 @@ def generate(issue: str):
     )
 
     drow(
-        text=f"Scrip: {issue.stock_symbol} · Issued By {issue.issued_by}",
+        text=f"Scrip: {issue.scrip} · Issued By {issue.issued_by}",
         size=38,
         fill='#ffffff',
         y=864,
@@ -97,7 +97,7 @@ def generate(issue: str):
         align="center"
     )
 
-    image_name = f'{issue.stock_symbol}.PNG'
+    image_name = f'{issue.scrip}.PNG'
     the_image = current_dir / image_name
     template.save(image_name)
     return open(the_image, 'rb')

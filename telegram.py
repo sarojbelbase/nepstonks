@@ -71,7 +71,7 @@ def article_content(article: str) -> str:
 
 
 def stock_content(stock: str) -> str:
-    return f"""<strong>#Stock #{stock.stock_type} #{stock.stock_symbol}</strong>
+    return f"""<strong>#Stock #{stock.stock_type} #{stock.scrip}</strong>
 🖨️ <strong><a href="{PDF_URL+ stock.pdf }">View In Details</a></strong>
 """
 
@@ -80,7 +80,7 @@ def reminding_content(stock: str) -> str:
     return f"""<strong>Reminder!</strong>
 
 <strong><em>Don't forget to apply for this {stock.stock_type} today</em></strong>😊
-<strong>{stock.company_name} | {stock.stock_symbol}</strong>
+<strong>{stock.company_name} | {stock.scrip}</strong>
 {is_rightshare(stock)}
 """
 

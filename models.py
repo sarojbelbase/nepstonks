@@ -25,7 +25,7 @@ class Stock(BaseModel):
     ratio = Column(String(), nullable=True)
     start_date = Column(Date(), nullable=False)
     stock_id = Column(Integer(), nullable=False)
-    stock_symbol = Column(String(), nullable=False)
+    scrip = Column(String(), nullable=False)
     stock_type = Column(String(), nullable=False)
     units = Column(String(), nullable=True)
     is_published = Column(Boolean(), default=False)

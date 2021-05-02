@@ -113,7 +113,7 @@ def break_this(given_text: str) -> str:
 def flush_the_image(issue: str) -> bool:
     from const import current_dir
     from os import path, remove
-    picture = current_dir / f'{issue.stock_symbol}.PNG'
+    picture = current_dir / f'{issue.scrip}.PNG'
     if path.exists(picture):
         remove(picture)
         return True
