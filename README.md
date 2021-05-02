@@ -35,6 +35,13 @@ A channel that publishes latest news & upcoming stocks related to `IPOs`, `FPOs`
 - SQLAlchemy: SQL toolkit and object-relational mapper for Python
 - Github Actions: CI/CD that makes it easy to automate all your software workflows
 
+### Changelogs
+
+- `April 21` | Add latest share market news
+- `April 26` | Add Reminder Notification for stocks
+- `April 28` | Remove merolagani updates
+- `May 02` | Send stocks in Images
+
 ### Environment Variables
 
 - `CHANNEL` = 'The telegram channel you want to send updates e.g @nepstonks'
