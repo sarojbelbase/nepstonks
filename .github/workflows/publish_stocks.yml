@@ -1,10 +1,10 @@
-name: publish_stocks
+name: check_stocks
 
 on:
     schedule:
         # Runs everyday at:
-        # 04:30 UTC (GMT0:00) -> 22:45 Nepal Time (GMT+5:45)
-        - cron: "45 22 * * *"
+        # 12:15 AM UTC (GMT0:00) -> 06:00 AM Nepal Time (GMT+5:45)
+        - cron: "15 00 * * *"
 
 jobs:
     build:
