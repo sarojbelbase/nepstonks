@@ -62,7 +62,7 @@ def generate(issue: str):
     )
 
     drow(
-        text=f"{parse_miti(issue.end_date)}",
+        text=f"{parse_miti(issue.closing_date)}",
         size=56,
         fill='#f25c74',
         x=615,
@@ -71,7 +71,7 @@ def generate(issue: str):
     )
 
     drow(
-        text=f"{parse_date(issue.end_date)}",
+        text=f"{parse_date(issue.closing_date)}",
         size=56,
         fill='#f25c74',
         x=615,

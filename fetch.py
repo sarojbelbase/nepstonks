@@ -58,7 +58,7 @@ def latest_stocks() -> List[Dict]:
         for stock in scraped_stocks(category_id):
             data = {
                 'company_name': stock['CompanyName'],
-                'end_date': parse(stock['EndDateString']).date(),
+                'closing_date': parse(stock['EndDateString']).date(),
                 'investment_id': stock['InvestmentID'],
                 'issued_by': stock['IssueManager'],
                 'pdf': stock['DescriptionPdf'],

@@ -21,7 +21,7 @@ def add_stock():
                 this_stock = \
                     Stock(
                         company_name=the_stock['company_name'],
-                        end_date=the_stock['end_date'],
+                        closing_date=the_stock['closing_date'],
                         investment_id=the_stock['investment_id'],
                         issued_by=the_stock['issued_by'],
                         pdf=the_stock['pdf'],
