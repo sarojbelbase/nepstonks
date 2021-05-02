@@ -37,10 +37,10 @@ A channel that publishes latest news & upcoming stocks related to `IPOs`, `FPOs`
 
 ### Changelogs
 
-- `April 21` | Add latest share market news
-- `April 26` | Add Reminder Notification for stocks
-- `April 28` | Remove merolagani updates
-- `May 02` | Send stocks in Images
+- `May 02` Send stocks in Images
+- `April 28` Remove merolagani updates
+- `April 26` Add Reminder Notification for stocks
+- `April 21` Add latest share market news
 
 ### Environment Variables
 
