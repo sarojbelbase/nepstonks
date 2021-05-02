@@ -28,10 +28,10 @@ def get_units(sharetype: str) -> str:
         return sharetype[index+1:].strip()
 
 
-def mark_as_published(given_item):
+def mark_as_published(given_item: str) -> None:
     from insert import session
     given_item.is_published = True
-    session.add(given_item)
+    return session.add(given_item)
 
 
 def parse_miti(given_date: date) -> str:
@@ -75,7 +75,7 @@ def media_url_resolves(media_url: str) -> bool:
         return False
 
 
-def handle_response(the_url, payload, **kwargs):
+def handle_response(the_url: str, payload: dict, **kwargs):
     # handles telegram bot requests and raise if it can't
     try:
         req = requests.post(
@@ -110,7 +110,7 @@ def break_this(given_text: str) -> str:
     return ' '.join(text)
 
 
-def flush_the_image(issue):
+def flush_the_image(issue: str) -> bool:
     from const import current_dir
     from os import path, remove
     picture = current_dir / f'{issue.stock_symbol}.PNG'
