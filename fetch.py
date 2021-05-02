@@ -3,7 +3,7 @@ from typing import Dict, List
 import requests
 from dateutil.parser import parse
 
-from const import API_URL, CATEGORIES, ORIGIN, REFERER
+from const import API_URL, CATEGORIES, ORIGIN, PDF_URL, REFERER
 from utils import get_units
 
 
@@ -61,7 +61,7 @@ def latest_stocks() -> List[Dict]:
                 'closing_date': parse(stock['EndDateString']).date(),
                 'investment_id': stock['InvestmentID'],
                 'issued_by': stock['IssueManager'],
-                'pdf_url': stock['DescriptionPdf'],
+                'pdf_url': PDF_URL + stock['DescriptionPdf'],
                 'ratio': stock['Ratio'],
                 'opening_date': parse(stock['StartDateString']).date(),
                 'stock_id': stock['CategoryID'],
