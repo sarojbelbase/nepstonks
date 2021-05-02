@@ -78,10 +78,14 @@ def media_url_resolves(media_url: str) -> bool:
 def handle_response(the_url, payload, **kwargs):
     # handles telegram bot requests and raise if it can't
     try:
-        req = requests.post(the_url, data=payload, files=kwargs['files'])
+        req = requests.post(
+            url=the_url,
+            data=payload,
+            files=kwargs['files'] if kwargs else None
+        )
         res = req.json()
         if req.status_code == 200:
-            if kwargs['record_response']:
+            if kwargs:
                 from insert import add_chat
                 return add_chat(kwargs['stock_id'], res['result']['message_id'])
             print(req.json())
