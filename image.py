@@ -3,10 +3,19 @@ from PIL import Image, ImageDraw, ImageFont
 from utils import break_this, is_rightshare, parse_date, parse_miti
 
 
-def generate(issue):
+def generate(issue: str):
+    """Generate images based on the issue provided
+
+    Args:
+        issue (str): issue to be generated
+
+    Returns:
+        [BufferedReader]: generates image in bytes form so that `multipart/form-data` can read the file
+    """
     from const import current_dir
 
-    def drow(text, size, fill, y, draw, x=None, **kwargs):
+    def drow(text: str, size: int, fill: str, y: int, draw, x: int = None, **kwargs):
+        # takes care of having to type all these defaults also variable font_size
         font = ImageFont.truetype('media/regular.ttf', size)
         w, _ = draw.textsize(text, font)
         x = (template.width - w) / 2 if x is None else x
