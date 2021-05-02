@@ -44,7 +44,7 @@ def generate(issue: str):
     )
 
     drow(
-        text=f"{parse_miti(issue.start_date)}",
+        text=f"{parse_miti(issue.opening_date)}",
         size=56,
         fill='#fea538',
         x=295,
@@ -53,7 +53,7 @@ def generate(issue: str):
     )
 
     drow(
-        text=f"{parse_date(issue.start_date)}",
+        text=f"{parse_date(issue.opening_date)}",
         size=56,
         fill='#fea538',
         x=295,

@@ -26,7 +26,7 @@ def add_stock():
                         issued_by=the_stock['issued_by'],
                         pdf=the_stock['pdf'],
                         ratio=the_stock['ratio'],
-                        start_date=the_stock['start_date'],
+                        opening_date=the_stock['opening_date'],
                         stock_id=the_stock['stock_id'],
                         scrip=the_stock['scrip'],
                         stock_type=the_stock['stock_type'],
@@ -74,13 +74,13 @@ def add_chat(stock_id: int, message_id: int) -> bool:
 
 
 def unsent_stocks():
-    return StockTable.filter(Stock.is_published == False).order_by(Stock.start_date.desc()).all()
+    return StockTable.filter(Stock.is_published == False).order_by(Stock.opening_date.desc()).all()
 
 
 def upcoming_stocks():
     from datetime import date
     # lists all issues that will open today
-    return StockTable.filter(Stock.start_date == date.today()).order_by(Stock.start_date.desc()).all()
+    return StockTable.filter(Stock.opening_date == date.today()).order_by(Stock.opening_date.desc()).all()
 
 
 def unsent_articles():

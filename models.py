@@ -23,7 +23,7 @@ class Stock(BaseModel):
     issued_by = Column(String(), nullable=False)
     pdf = Column(String(), nullable=True)
     ratio = Column(String(), nullable=True)
-    start_date = Column(Date(), nullable=False)
+    opening_date = Column(Date(), nullable=False)
     stock_id = Column(Integer(), nullable=False)
     scrip = Column(String(), nullable=False)
     stock_type = Column(String(), nullable=False)

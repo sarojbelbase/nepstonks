@@ -63,7 +63,7 @@ def latest_stocks() -> List[Dict]:
                 'issued_by': stock['IssueManager'],
                 'pdf': stock['DescriptionPdf'],
                 'ratio': stock['Ratio'],
-                'start_date': parse(stock['StartDateString']).date(),
+                'opening_date': parse(stock['StartDateString']).date(),
                 'stock_id': stock['CategoryID'],
                 'scrip': stock['StockSymbol'],
                 'stock_type': stock['CategoryName'],
