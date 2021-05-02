@@ -4,6 +4,7 @@ from utils import break_this, is_rightshare, parse_date, parse_miti
 
 
 def generate(issue):
+    from const import current_dir
 
     def drow(text, size, fill, y, draw, x=None, **kwargs):
         font = ImageFont.truetype('media/regular.ttf', size)
@@ -87,4 +88,7 @@ def generate(issue):
         align="center"
     )
 
-    return template.save(f'{issue.stock_symbol}.PNG')
+    image_name = f'{issue.stock_symbol}.PNG'
+    the_image = current_dir / image_name
+    template.save(image_name)
+    return open(the_image, 'rb')
