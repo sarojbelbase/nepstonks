@@ -78,10 +78,9 @@ def unsent_stocks():
 
 
 def upcoming_stocks():
-    from datetime import date, timedelta
-    # lists all stock that are one day far from being available to apply
-    one_day_far = date.today() + timedelta(days=1)
-    return StockTable.filter(Stock.start_date == one_day_far).order_by(Stock.start_date.desc()).all()
+    from datetime import date
+    # lists all issues that will open today
+    return StockTable.filter(Stock.start_date == date.today()).order_by(Stock.start_date.desc()).all()
 
 
 def unsent_articles():
