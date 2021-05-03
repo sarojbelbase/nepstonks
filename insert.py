@@ -74,7 +74,8 @@ def add_chat(stock_id: int, message_id: int) -> bool:
 
 
 def unsent_stocks():
-    return StockTable.filter(Stock.is_published == False).order_by(Stock.opening_date.desc()).all()
+    from datetime import date
+    return StockTable.filter(Stock.is_published == False, Stock.opening_date >= date.today()).order_by(Stock.opening_date.desc()).all()
 
 
 def upcoming_stocks():
