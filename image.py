@@ -1,21 +1,22 @@
 from PIL import Image, ImageDraw, ImageFont
 
+from insert import Stock
 from utils import break_this, is_rightshare, parse_date, parse_miti
 
 
-def generate(issue: str):
+def generate(issue: Stock):
     """Generate images based on the issue provided
 
     Args:
-        issue (str): issue to be generated
+        issue (Stock): issue to be generated
 
     Returns:
-        [BufferedReader]: generates image in bytes form so that `multipart/form-data` can read the file
+        [BufferedReader]: generates readable image in bytes format supported by the `multipart/form-data`
     """
     from const import current_dir
 
     def drow(text: str, size: int, fill: str, y: int, draw, x: int = None, **kwargs):
-        # takes care of having to type all these defaults also variable font_size
+        # takes care of having to type all these defaults and variable font sizes
         font = ImageFont.truetype('media/regular.ttf', size)
         w, _ = draw.textsize(text, font)
         x = (template.width - w) / 2 if x is None else x

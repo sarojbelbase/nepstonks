@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy.orm import Query
 
 from fetch import latest_stocks
@@ -9,10 +11,10 @@ StockTable = Query(Stock, session)
 TelegramTable = Query(Telegram, session)
 
 
-def add_stock():
+def add_stock() -> None:
     scraped_stocks: list = latest_stocks()
     fetched_stocks: int = len(scraped_stocks)
-    if fetched_stocks > 0:
+    if fetched_stocks:
         for the_stock in scraped_stocks:
             the_stock_id = StockTable.filter(
                 Stock.investment_id == the_stock['investment_id']).first()
@@ -36,10 +38,10 @@ def add_stock():
         session.commit()
 
 
-def add_article():
+def add_article() -> None:
     scraped_articles: list = latest_articles()
     fetched_articles: int = len(scraped_articles)
-    if fetched_articles > 0:
+    if fetched_articles:
         for the_article in scraped_articles:
             the_article_id = NewsTable.filter(
                 News.title == the_article['title']).first()
@@ -73,16 +75,19 @@ def add_chat(stock_id: int, message_id: int) -> bool:
     return False
 
 
-def unsent_stocks():
+def unsent_stocks() -> List[Stock]:
     from datetime import date
+
+    # only send stocks that are newer
     return StockTable.filter(Stock.is_published == False, Stock.opening_date >= date.today()).order_by(Stock.opening_date.desc()).all()
 
 
-def upcoming_stocks():
+def upcoming_stocks() -> List[Stock]:
     from datetime import date
-    # lists all issues that will open today
+
+    # lists all issues that are about to open today
     return StockTable.filter(Stock.opening_date == date.today()).order_by(Stock.opening_date.desc()).all()
 
 
-def unsent_articles():
+def unsent_articles() -> List[News]:
     return NewsTable.filter(News.is_published == False).order_by(News.date_published.desc()).all()

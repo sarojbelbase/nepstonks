@@ -1,9 +1,12 @@
 import re
 from datetime import date
-from typing import Dict, List
+from typing import Dict, List, Optional, Union
 
 import requests
 from nepali_datetime import date as nepdate
+from typing_extensions import Literal
+
+from models import Stock, News
 
 
 def replace_this(substring: str, from_given_text: str) -> str:
@@ -21,14 +24,15 @@ def fix_last_dharko(given_text: str) -> str:
     return fixed_text
 
 
-def get_units(sharetype: str) -> str:
+def get_units(sharetype: str) -> Optional[str]:
     index = sharetype.find(':')
     if index != -1:
         # get only kittas/units and slice out the "share_type"
         return sharetype[index+1:].strip()
+    return None
 
 
-def mark_as_published(given_item: str) -> None:
+def mark_as_published(given_item: Union[Stock, News]) -> None:
     from insert import session
     given_item.is_published = True
     return session.add(given_item)
@@ -43,7 +47,7 @@ def parse_date(given_date: date) -> str:
     return given_date.strftime('%B %d')
 
 
-def is_rightshare(stock: str) -> str:
+def is_rightshare(stock: Stock) -> str:
     # if its right share it publishes both units & ratio else publish units only
     units = f"Total Units: {stock.units}"
     ratio = f"Ratio: {stock.ratio}"
@@ -51,11 +55,6 @@ def is_rightshare(stock: str) -> str:
         return f"{units}, {ratio}"
     else:
         return units
-
-
-def has_description(article: str) -> str:
-    # if the article has description return description else None
-    return article.description if article.description else ''
 
 
 def media_url_resolves(media_url: str) -> bool:
@@ -110,9 +109,10 @@ def break_this(given_text: str) -> str:
     return ' '.join(text)
 
 
-def flush_the_image(issue: str) -> bool:
-    from const import current_dir
+def flush_the_image(issue: Stock) -> bool:
     from os import path, remove
+
+    from const import current_dir
     picture = current_dir / f'{issue.scrip}.PNG'
     if path.exists(picture):
         remove(picture)

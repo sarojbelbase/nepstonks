@@ -1,5 +1,8 @@
+from datetime import datetime
+from typing import Dict, List, Optional, Union
+
 import requests
-from bs4 import BeautifulSoup as bs
+from bs4 import BeautifulSoup
 from dateutil import parser as ps
 
 from const import NEWS_URL_BM, NEWS_URL_ML
@@ -9,7 +12,7 @@ from utils import fix_last_dharko, merge_sources, replace_this
 
 # scrape section: a function that starts the scraping engine
 
-def scrape_articles(url: str):
+def scrape_articles(url: str) -> BeautifulSoup:
     parser = 'lxml'
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36\
@@ -18,7 +21,7 @@ def scrape_articles(url: str):
     try:
         response = requests.get(url, headers=headers)
         content = response.text.encode('utf-8')
-        soup = bs(content, parser)
+        soup = BeautifulSoup(content, parser)
         return soup
     except requests.exceptions.ConnectionError as e:
         return print("Looks like the news API did an oopsie:\n", e)
@@ -26,7 +29,7 @@ def scrape_articles(url: str):
 
 # sources section: the article sources will be in this section organized by function names
 
-def bizmandu():
+def bizmandu() -> List[Dict[str, Optional[Union[datetime, str]]]]:
     source = 'bizmandu'
     first_word = "^काठमाडौं['\s']?[।]?"
     soup = scrape_articles(NEWS_URL_BM)
@@ -58,7 +61,7 @@ def bizmandu():
     return articles
 
 
-def merolagani():
+def merolagani() -> List[Dict[str, Optional[Union[datetime, str]]]]:
     source = 'merolagani'
     soup = scrape_articles(NEWS_URL_ML)
     container = soup.select('div.media-news')
@@ -90,7 +93,7 @@ def merolagani():
 
 # main section: combines all required functions and executes them
 
-def latest_articles():
+def latest_articles() -> List[Dict]:
     return merge_sources(bizmandu())
 
 
@@ -101,8 +104,9 @@ def main():
     add_article()
 
     unpublished_articles = list(unsent_articles())
-    if len(unpublished_articles) > 0:
+    if unpublished_articles:
         from models import session
+
         # articles that are older has to be published first
         # making the latest ones to be after the older ones
         the_list = unpublished_articles[::-1]

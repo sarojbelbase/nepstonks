@@ -7,7 +7,7 @@ def publish_stocks():
     add_stock()
 
     unpublished_stocks = list(unsent_stocks())
-    if len(unpublished_stocks) > 0:
+    if unpublished_stocks:
         from models import session
         for the_stock in unpublished_stocks:
             publish_stock(the_stock)
@@ -17,7 +17,7 @@ def publish_stocks():
 
 def remind_stock():
     upcoming_issues = list(upcoming_stocks())
-    if len(upcoming_issues) > 0:
+    if upcoming_issues:
         for issue in upcoming_issues:
             remind_and_pin(issue)
         return print(f"reminded about {len(upcoming_issues)} stock")
