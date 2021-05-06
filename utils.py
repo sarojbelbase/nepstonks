@@ -4,9 +4,8 @@ from typing import Dict, List, Optional, Union
 
 import requests
 from nepali_datetime import date as nepdate
-from typing_extensions import Literal
 
-from models import Stock, News
+from models import News, Stock
 
 
 def replace_this(substring: str, from_given_text: str) -> str:
@@ -24,7 +23,7 @@ def fix_last_dharko(given_text: str) -> str:
     return fixed_text
 
 
-def get_units(sharetype: str) -> Optional[str]:
+def extract_units(sharetype: str) -> Optional[str]:
     index = sharetype.find(':')
     if index != -1:
         # get only kittas/units and slice out the "share_type"
