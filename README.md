@@ -37,6 +37,7 @@ A channel that publishes latest news & upcoming stocks related to `IPOs`, `FPOs`
 
 ### Changelogs
 
+- `May 06` Support For Local IPOs
 - `May 02` Send stocks in Images
 - `April 28` Remove merolagani updates
 - `April 26` Add Reminder Notification for stocks

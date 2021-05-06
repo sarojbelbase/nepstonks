@@ -118,3 +118,13 @@ def flush_the_image(issue: Stock) -> bool:
         return True
     else:
         return False
+
+
+def get_sharetype(stock_id: int, raw_info: str) -> Optional[str]:
+    from const import CATEGORIES
+    local = "[Ll]ocal[s]?"
+    if CATEGORIES.get(stock_id):
+        if bool(re.search(local, raw_info)):
+            return f'Local {CATEGORIES.get(stock_id)}'
+        return CATEGORIES.get(stock_id)
+    return None

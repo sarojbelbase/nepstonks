@@ -52,7 +52,7 @@ def scraped_stocks(category_id: int):
 
 
 def latest_stocks() -> List[Dict]:
-    from utils import extract_units
+    from utils import extract_units, get_sharetype
     stocks = []
     for category_id in list(CATEGORIES.keys()):
         for stock in scraped_stocks(category_id):
@@ -66,7 +66,7 @@ def latest_stocks() -> List[Dict]:
                 'opening_date': parse(stock['StartDateString']).date(),
                 'stock_id': stock['CategoryID'],
                 'scrip': stock['StockSymbol'],
-                'stock_type': stock['CategoryName'],
+                'stock_type':  get_sharetype(category_id, stock['ShareType']),
                 'units': extract_units(stock['ShareType']),
             }
             stocks.append(data)
