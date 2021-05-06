@@ -1,10 +1,9 @@
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 import requests
 from dateutil.parser import parse
 
 from const import API_URL, CATEGORIES, ORIGIN, PDF_URL, REFERER
-from utils import get_units
 
 
 def scraped_stocks(category_id: int):
@@ -53,8 +52,9 @@ def scraped_stocks(category_id: int):
 
 
 def latest_stocks() -> List[Dict]:
+    from utils import extract_units
     stocks = []
-    for category_id in CATEGORIES:
+    for category_id in list(CATEGORIES.keys()):
         for stock in scraped_stocks(category_id):
             data = {
                 'company_name': stock['CompanyName'],
@@ -67,7 +67,7 @@ def latest_stocks() -> List[Dict]:
                 'stock_id': stock['CategoryID'],
                 'scrip': stock['StockSymbol'],
                 'stock_type': stock['CategoryName'],
-                'units': get_units(stock['ShareType']),
+                'units': extract_units(stock['ShareType']),
             }
             stocks.append(data)
     return stocks

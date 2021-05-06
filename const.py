@@ -6,9 +6,12 @@ from dotenv import find_dotenv, load_dotenv
 current_dir = Path(__file__).parent.resolve()
 
 load_dotenv(find_dotenv())
+CATEGORIES = {
+    2: 'IPO', 3: 'FPO',
+    5: 'Right Share',
+    7: 'Mutual Fund',
+    8: 'Debenture'}
 ORIGIN = environ['ORIGIN']
-# categories of the stocks provided by the API
-CATEGORIES = [2, 3, 5, 7, 8]
 API_URL = environ['API_URL']
 PDF_URL = environ['PDF_URL']
 REFERER = environ['REFERER']
