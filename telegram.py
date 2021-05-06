@@ -75,7 +75,8 @@ def article_content(article: News) -> str:
 
 
 def stock_content(stock: Stock) -> str:
-    without_pdf = f"<strong>#Stock #{stock.stock_type} #{stock.scrip}</strong>"
+    from utils import hashtag
+    without_pdf = f"<strong>#Stock {hashtag(stock.stock_type)} #{stock.scrip}</strong>"
     with_pdf = f'<strong><a href="{stock.pdf_url}">View PDF</a></strong>'
     return f'{without_pdf} · {with_pdf}' if stock.pdf_url else without_pdf
 

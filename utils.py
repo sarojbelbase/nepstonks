@@ -128,3 +128,8 @@ def get_sharetype(stock_id: int, raw_info: str) -> Optional[str]:
             return f'Local {CATEGORIES.get(stock_id)}'
         return CATEGORIES.get(stock_id)
     return None
+
+
+def hashtag(given_str: str) -> str:
+    # remove spaces between two words
+    return f"#{''.join(given_str.split())}"
