@@ -33,7 +33,7 @@ def bizmandu() -> List[Dict[str, Optional[Union[datetime, str]]]]:
     source = 'bizmandu'
     first_word = "^काठमाडौं['\s']?[।]?"
     soup = scrape_articles(NEWS_URL_BM)
-    container = soup.find("ul", attrs={'class': "uk-list"}).find_all("li")
+    container = soup.select_one("ul.uk-list").select('li')
     articles = []
 
     for article in container:
