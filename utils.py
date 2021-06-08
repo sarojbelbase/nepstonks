@@ -1,26 +1,15 @@
 import re
 from datetime import date
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 import requests
 from nepali_datetime import date as nepdate
 
-from models import News, Stock
+from models import Stock
 
 
 def replace_this(substring: str, from_given_text: str) -> str:
     return re.sub(substring, '', from_given_text).strip()
-
-
-def fix_last_dharko(given_text: str) -> str:
-    # removes incomplete texts towards the end
-    dharko = '।'
-    matches = re.finditer(dharko, given_text)
-    all_dharkos = [match.start() for match in matches]
-    index_of_last_dharko = max(all_dharkos)
-    # also include the dharko after slicing the given text
-    fixed_text = given_text[:index_of_last_dharko+1]
-    return fixed_text
 
 
 def extract_units(sharetype: str) -> Optional[str]:
@@ -31,7 +20,7 @@ def extract_units(sharetype: str) -> Optional[str]:
     return None
 
 
-def mark_as_published(given_item: Union[Stock, News]) -> None:
+def mark_as_published(given_item: Stock) -> None:
     from insert import session
     given_item.is_published = True
     return session.add(given_item)

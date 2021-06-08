@@ -3,9 +3,9 @@ from typing import Optional
 from typing_extensions import Literal
 
 from const import CHANNEL, TELEGRAM_URL
-from models import News, Stock
+from models import Stock
 from utils import (flush_the_image, handle_response, is_rightshare,
-                   mark_as_published, media_url_resolves, parse_date)
+                   mark_as_published)
 
 
 def send_this_stock(stock: Stock) -> Optional[Literal[True]]:
@@ -40,40 +40,6 @@ def pin_message(stock: Stock) -> Optional[Literal[True]]:
     return handle_response(endpoint, payload)
 
 
-def send_only_article(article: News) -> Optional[Literal[True]]:
-    endpoint = TELEGRAM_URL + 'sendMessage'
-    payload = {
-        'chat_id': CHANNEL,
-        'text': article_content(article),
-        'disable_web_page_preview': 'true',
-        'disable_notification': 'true',
-        'parse_mode': 'HTML'
-    }
-    return handle_response(endpoint, payload)
-
-
-def send_with_photo(article: News) -> Optional[Literal[True]]:
-    endpoint = TELEGRAM_URL + 'sendPhoto'
-    payload = {
-        'chat_id': CHANNEL,
-        'photo': article.image_url,
-        'caption': article_content(article),
-        'disable_web_page_preview': 'true',
-        'disable_notification': 'true',
-        'parse_mode': 'HTML'
-    }
-    return handle_response(endpoint, payload)
-
-
-def article_content(article: News) -> str:
-    return f"""<strong>{article.title}</strong>
-
-{article.description if article.description else ''}
-
-📣 <strong>#News #{article.source.title()} · {parse_date(article.date_published)} · <a href="{article.url}">Read More</a></strong>
-"""
-
-
 def stock_content(stock: Stock) -> str:
     from utils import hashtag
     without_pdf = f"<strong>#Stock {hashtag(stock.stock_type)} #{stock.scrip}</strong>"
@@ -104,13 +70,3 @@ def remind_and_pin(the_stock: Stock) -> bool:
         pin_message(the_stock)
         return True
     return False
-
-
-def publish_article(the_article: News) -> None:
-    image_url = the_article.image_url
-    if media_url_resolves(image_url):
-        send_with_photo(the_article)
-        mark_as_published(the_article)
-    else:
-        send_only_article(the_article)
-        mark_as_published(the_article)

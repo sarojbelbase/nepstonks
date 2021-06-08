@@ -3,10 +3,8 @@ from typing import List
 from sqlalchemy.orm import Query
 
 from fetch import latest_stocks
-from models import News, Stock, Telegram, session
-from news import latest_articles
+from models import Stock, Telegram, session
 
-NewsTable = Query(News, session)
 StockTable = Query(Stock, session)
 TelegramTable = Query(Telegram, session)
 
@@ -38,29 +36,6 @@ def add_stock() -> None:
         session.commit()
 
 
-def add_article() -> None:
-    scraped_articles: list = latest_articles()
-    fetched_articles: int = len(scraped_articles)
-    if fetched_articles:
-        for the_article in scraped_articles:
-            the_article_id = NewsTable.filter(
-                News.title == the_article['title']).first()
-            # to avoid inserting the same article in the table
-            if not the_article_id:
-                this_article = \
-                    News(
-                        date_published=the_article['date_published'],
-                        description=the_article['description'],
-                        image_url=the_article['image_url'],
-                        lang=the_article['lang'],
-                        source=the_article['source'],
-                        title=the_article['title'],
-                        url=the_article['url'],
-                    )
-                session.add(this_article)
-        session.commit()
-
-
 def add_chat(stock_id: int, message_id: int) -> bool:
     the_stock = StockTable.filter(Stock.id == stock_id).first()
     if the_stock and message_id:
@@ -87,7 +62,3 @@ def upcoming_stocks() -> List[Stock]:
 
     # lists all issues that are about to open today
     return StockTable.filter(Stock.opening_date == date.today()).order_by(Stock.opening_date.desc()).all()
-
-
-def unsent_articles() -> List[News]:
-    return NewsTable.filter(News.is_published == False).order_by(News.date_published.desc()).all()

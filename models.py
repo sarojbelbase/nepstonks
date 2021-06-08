@@ -1,7 +1,8 @@
 from datetime import datetime
 from os import path
 
-from sqlalchemy import Boolean, Column, Date, DateTime, ForeignKey, Integer, String, Text, create_engine
+from sqlalchemy import (Boolean, Column, Date, DateTime, ForeignKey, Integer,
+                        String, create_engine)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session, relationship
 
@@ -45,23 +46,6 @@ class Telegram(BaseModel):
 
     def __repr__(self):
         return f'Message: {self.message_id} Stock: {self.stock_id}'
-
-
-class News(BaseModel):
-    __tablename__ = 'news'
-    id = Column(Integer(), primary_key=True)
-    date_published = Column(DateTime(), nullable=False)
-    description = Column(Text(), nullable=True)
-    image_url = Column(String(), nullable=True)
-    is_published = Column(Boolean(), default=False)
-    lang = Column(String(), nullable=False)
-    source = Column(String(), nullable=False)
-    title = Column(String(), nullable=False)
-    url = Column(String(), nullable=False)
-    article_added_at = Column(DateTime(), default=datetime.utcnow)
-
-    def __repr__(self):
-        return f'{self.title}({self.source})'
 
 
 if __name__ == '__main__':
