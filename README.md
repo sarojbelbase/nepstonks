@@ -69,4 +69,9 @@ A channel that publishes latest news & upcoming stocks related to `IPOs`, `FPOs`
 Inspired from <a target="_blank" href="https://github.com/amitness/auto-investment">auto-investment.</a>
 Feel free to fork or give a star to support my doing.
 
+### TODOs
+
+[ ] Add IPO Result
+[ ] Improve long month names
+
 ### Made with ❤️ in Nepal.
