@@ -20,3 +20,4 @@ BOT_TOKEN = environ['BOT_TOKEN']
 BOT_USERNAME = environ['BOT_USERNAME']
 DATABASE_URI = current_dir / 'nepstonks.db'
 TELEGRAM_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/"
+ALLOTMENT_URL = environ['ALLOTMENT_URL']

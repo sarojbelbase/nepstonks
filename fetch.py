@@ -3,7 +3,7 @@ from typing import Dict, List
 import requests
 from dateutil.parser import parse
 
-from const import API_URL, CATEGORIES, ORIGIN, PDF_URL, REFERER
+from const import API_URL, CATEGORIES, ORIGIN, PDF_URL, REFERER, ALLOTMENT_URL
 
 
 def scraped_stocks(category_id: int):
@@ -47,6 +47,13 @@ def scraped_stocks(category_id: int):
     try:
         response = requests.post(API_URL, headers=headers, json=json)
         return response.json()['d']
+    except requests.exceptions.ConnectionError as e:
+        return print("Looks like the stock API did an oopsie:\n", e)
+
+def alloted_stocks() -> List[Dict]:
+    try:
+        response = requests.get(ALLOTMENT_URL)
+        return response
     except requests.exceptions.ConnectionError as e:
         return print("Looks like the stock API did an oopsie:\n", e)
 
