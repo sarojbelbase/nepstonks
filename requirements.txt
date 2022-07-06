@@ -5,7 +5,7 @@ chardet==4.0.0
 greenlet==1.0.0
 idna==2.10
 importlib-metadata==3.10.0
-lxml==4.6.5
+lxml==4.9.1
 nepali-datetime==1.0.6
 Pillow==9.0.1
 pycodestyle==2.7.0
