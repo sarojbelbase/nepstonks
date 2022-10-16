@@ -62,7 +62,7 @@ def announcement_content(announcement: Announcement) -> str:
 
 {announcement.content}
 
-<strong><a href="{announcement.content_url}">Go To The Announcement</a></strong>
+<strong><a href="{announcement.content_url}">View Announcement</a></strong>
 """
 
 
