@@ -2,6 +2,7 @@
 <img src="media/nepalstonks.png" width="35%" height="auto"><br>
 <strong>
 A telegram channel that informs with the latest share market news, upcoming stocks, issues, and investment opportunities that are announced inside Nepal.
+<br>
 <!-- SUBSCRIBERS COUNT STARTED -->
 <a target="_blank" href="https://t.me/nepstonks"><img alt="Total Subscribers Count" src="https://img.shields.io/badge/dynamic/json?style=for-the-badge&logo=telegram&label=subscribers&query=members&url=https%3A%2F%2Fapi.pever.tech%2Ftginfo%3Fusername%3Dnepstonks&color=141414&labelColor=141414"></a>
 <!-- SUBSCRIBERS COUNT ENDED -->
