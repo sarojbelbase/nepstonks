@@ -30,12 +30,10 @@ jobs:
                   NEWS_URL_ML: ${{ secrets.NEWS_URL_ML }}
                   BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
                   CHANNEL: ${{ secrets.CHANNEL }}
-                  REFERER: ${{ secrets.REFERER }}
                   API_URL: ${{ secrets.API_URL }}
                   PDF_URL: ${{ secrets.PDF_URL }}
-                  ORIGIN: ${{ secrets.ORIGIN }}
               run: |
-                  python main.py
+                  python run.py
 
             - name: Commit only if new stocks have been added
               run: |
