@@ -19,6 +19,7 @@ A channel that publishes latest news & upcoming stocks related to `IPOs`, `FPOs`
 ### Features
 
 - Informs about upcoming issues
+- Announces when share are alloted to general public
 - Share market and stock related news from reputed sites
 - Reminds to apply for stocks beforehand
 
@@ -31,28 +32,30 @@ A channel that publishes latest news & upcoming stocks related to `IPOs`, `FPOs`
 
 ### Used Tools & Technologies
 
+- Requests: HTTP Requests
+- BeautifulSoup: Web Scraping
+- Pillow: Python Imaging Library
 - SQLite: A database for storing stocks
 - SQLAlchemy: SQL toolkit and object-relational mapper for Python
 - Github Actions: CI/CD that makes it easy to automate all your software workflows
 
 ### Changelogs
 
-- `June 08` Remove share market news
-- `May 06` Support For Local IPOs
-- `May 02` Send stocks in Images
-- `April 28` Remove merolagani updates
-- `April 26` Add Reminder Notification for stocks
-- `April 21` Add latest share market news
+- `2022, October 16` Added General Public Share Allotment Announcements
+- `2021, June 08` Remove share market news
+- `2021, May 06` Support For Local IPOs
+- `2021, May 02` Send stocks in Images
+- `2021, April 28` Remove merolagani updates
+- `2021, April 26` Add Reminder Notification for stocks
+- `2021, April 21` Add latest share market news
 
 ### Environment Variables
 
+- `ALLOTMENT_URL`: URL for the allotment result
 - `CHANNEL` = 'The telegram channel you want to send updates e.g @nepstonks'
 - `BOT_TOKEN` = 'Bot Token generated from @botfather on telegram'
 - `BOT_USERNAME` = 'Bot username generated from @botfather on telegram'
 - `API_URL` = 'URL from where stocks are fetched (POST REQUEST)'
-- `ORIGIN` = 'Origin needed for header when POST request is sent'
-- `ORIGIN` = 'Origin needed for header from where it was referred'
-- `NEWS_URL_BM` = 'The scraping link from Bizmandu'
 - `PDF_URL` = 'URL that stores the uploaded PDF'
 
 ### Run & Setups
@@ -60,7 +63,7 @@ A channel that publishes latest news & upcoming stocks related to `IPOs`, `FPOs`
 - [Install & activate virtual environment in the project root folder](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/)
 - Add `.env` file in this folder & add all the environment variables with values given <a href="https://github.com/sidbelbase/nepstonks#environment-variables">here</a>
 - Run `python -m pip install -r requirements.txt`
-- Run `python app.py`
+- Run `python run.py`
 
 ### Links
 
