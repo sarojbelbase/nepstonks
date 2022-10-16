@@ -31,8 +31,10 @@ class Stock(BaseModel):
     units = Column(String(), nullable=True)
     is_published = Column(Boolean(), default=False)
     stock_added_at = Column(DateTime(), default=datetime.utcnow)
-    chat = relationship('Telegram', backref='stock', uselist=False,
-                        lazy=True, cascade='all, delete-orphan')
+    chat = relationship(
+        'Telegram', backref='stock', uselist=False,
+        lazy=True, cascade='all, delete-orphan'
+    )
 
     def __repr__(self):
         return f'{self.company_name}({self.stock_type})'
@@ -51,17 +53,15 @@ class Telegram(BaseModel):
 class Announcement(BaseModel):
     __tablename__ = 'announcement'
     id = Column(Integer(), primary_key=True)
-    message_id = Column(Integer(), default=0)
     content = Column(String(), nullable=False)
+    content_url = Column(String(), nullable=True)
     published_date = Column(Date(), nullable=True)
     is_published = Column(Boolean(), default=False)
-    announced_at = Column(DateTime(), default=datetime.utcnow)
+    scraped_at = Column(DateTime(), default=datetime.utcnow)
 
     def __repr__(self):
         return self.content
 
 
-if __name__ == '__main__':
-    # To create a new database with models specified above if db doesn't exist
-    if not path.isfile(DATABASE_URI):
-        BaseModel.metadata.create_all(engine)
+# Map the models to the database as tables
+BaseModel.metadata.create_all(engine, checkfirst=True)

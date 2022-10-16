@@ -4,11 +4,12 @@ from os import path, remove
 from typing import Dict, List, Optional
 
 import requests
+from bs4 import BeautifulSoup as bs
 from nepali_datetime import date as nepdate
 
 import utils.store as store
 from utils.const import CATEGORIES, current_dir
-from utils.models import Stock
+from utils.models import Stock, session
 
 
 def replace_this(substring: str, from_given_text: str) -> str:
@@ -23,8 +24,7 @@ def extract_units(sharetype: str) -> Optional[str]:
     return None
 
 
-def mark_as_published(given_item: Stock) -> None:
-    from utils.insert import session
+def mark_as_published(given_item) -> None:
     given_item.is_published = True
     return session.add(given_item)
 
@@ -76,7 +76,7 @@ def handle_response(the_url: str, payload: dict, **kwargs):
         res = req.json()
         if req.status_code == 200:
             if kwargs:
-                from utils.insert import add_chat
+                from actions.save import add_chat
                 add_chat(kwargs['stock_id'], res['result']['message_id'])
             print(req.json())
             return True
@@ -121,3 +121,18 @@ def get_sharetype(stock_id: int, raw_info: str) -> Optional[str]:
 def hashtag(given_str: str) -> str:
     # remove spaces between two words
     return f"#{''.join(given_str.split())}"
+
+
+def html_scraper(url):
+
+    parser = 'lxml'
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36\
+            (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36"
+    }
+    try:
+        response = requests.get(url, headers=headers)
+    except requests.exceptions.ConnectionError as e:
+        return print("Looks like the stock API did an oopsie:\n", e)
+    else:
+        return bs(response.text, parser)

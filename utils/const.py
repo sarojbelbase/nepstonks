@@ -8,7 +8,8 @@ current_dir = Path(__file__).parent.parent.resolve()
 load_dotenv(find_dotenv())
 
 CATEGORIES = {
-    2: 'IPO', 3: 'FPO',
+    2: 'IPO',
+    3: 'FPO',
     5: 'Right Share',
     7: 'Mutual Fund',
     8: 'Debenture'
