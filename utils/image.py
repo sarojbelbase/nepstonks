@@ -2,9 +2,9 @@ from uuid import uuid4
 
 from PIL import Image, ImageDraw, ImageFont
 
-from insert import Stock
-from utils import break_this, is_rightshare, parse_date, parse_miti
-import store
+from utils.insert import Stock
+from utils.helpers import break_this, is_rightshare, parse_date, parse_miti
+from utils import store
 
 
 def generate(issue: Stock):
@@ -16,7 +16,7 @@ def generate(issue: Stock):
     Returns:
         [BufferedReader]: generates readable image in bytes format supported by the `multipart/form-data`
     """
-    from const import current_dir
+    from utils.const import current_dir
 
     def drow(text: str, size: int, fill: str, y: int, draw, x: int = None, **kwargs):
         # takes care of having to type all these defaults and variable font sizes

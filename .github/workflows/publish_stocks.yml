@@ -35,7 +35,7 @@ jobs:
                   PDF_URL: ${{ secrets.PDF_URL }}
                   ORIGIN: ${{ secrets.ORIGIN }}
               run: |
-                  python stocks.py
+                  python main.py
 
             - name: Commit only if new stocks have been added
               run: |

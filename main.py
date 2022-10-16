@@ -1,5 +1,5 @@
-from insert import add_stock, unsent_stocks, upcoming_stocks
-from telegram import publish_stock, remind_and_pin
+from utils.insert import add_stock, unsent_stocks, upcoming_stocks
+from utils.telegram import publish_stock, remind_and_pin
 
 
 def publish_stocks():
@@ -8,7 +8,7 @@ def publish_stocks():
 
     unpublished_stocks = list(unsent_stocks())
     if unpublished_stocks:
-        from models import session
+        from utils.models import session
         for the_stock in unpublished_stocks:
             publish_stock(the_stock)
         session.commit()
@@ -25,4 +25,4 @@ def remind_stock():
 
 if __name__ == '__main__':
     publish_stocks()
-    remind_stock()
+    # remind_stock()

@@ -2,14 +2,14 @@ from typing import Optional
 
 from typing_extensions import Literal
 
-from const import CHANNEL, TELEGRAM_URL
-from models import Stock
-from utils import (flush_the_image, handle_response, is_rightshare,
-                   mark_as_published)
+from utils.const import CHANNEL, TELEGRAM_URL
+from utils.helpers import (flush_the_image, handle_response, is_rightshare,
+                           mark_as_published)
+from utils.models import Stock
 
 
 def send_this_stock(stock: Stock) -> Optional[Literal[True]]:
-    from image import generate
+    from utils.image import generate
     endpoint = TELEGRAM_URL + 'sendPhoto'
     payload = {
         'chat_id': CHANNEL,
@@ -41,7 +41,7 @@ def pin_message(stock: Stock) -> Optional[Literal[True]]:
 
 
 def stock_content(stock: Stock) -> str:
-    from utils import hashtag
+    from utils.helpers import hashtag
     without_pdf = f"<strong>#Stock {hashtag(stock.stock_type)} #{stock.scrip}</strong>"
     with_pdf = f'<strong><a href="{stock.pdf_url}">View PDF</a></strong>'
     return f'{without_pdf} · {with_pdf}' if stock.pdf_url else without_pdf

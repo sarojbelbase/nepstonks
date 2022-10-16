@@ -2,8 +2,8 @@ from typing import List
 
 from sqlalchemy.orm import Query
 
-from fetch import latest_stocks
-from models import Stock, Telegram, session
+from utils.fetch import latest_stocks
+from utils.models import Stock, Telegram, session
 
 StockTable = Query(Stock, session)
 TelegramTable = Query(Telegram, session)

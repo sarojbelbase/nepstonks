@@ -6,9 +6,9 @@ from typing import Dict, List, Optional
 import requests
 from nepali_datetime import date as nepdate
 
-import store
-from const import CATEGORIES, current_dir
-from models import Stock
+import utils.store as store
+from utils.const import CATEGORIES, current_dir
+from utils.models import Stock
 
 
 def replace_this(substring: str, from_given_text: str) -> str:
@@ -24,7 +24,7 @@ def extract_units(sharetype: str) -> Optional[str]:
 
 
 def mark_as_published(given_item: Stock) -> None:
-    from insert import session
+    from utils.insert import session
     given_item.is_published = True
     return session.add(given_item)
 
@@ -76,7 +76,7 @@ def handle_response(the_url: str, payload: dict, **kwargs):
         res = req.json()
         if req.status_code == 200:
             if kwargs:
-                from insert import add_chat
+                from utils.insert import add_chat
                 add_chat(kwargs['stock_id'], res['result']['message_id'])
             print(req.json())
             return True

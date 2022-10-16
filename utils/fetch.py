@@ -3,7 +3,7 @@ from typing import Dict, List
 import requests
 from dateutil.parser import parse
 
-from const import API_URL, CATEGORIES, ORIGIN, PDF_URL, REFERER, ALLOTMENT_URL
+from utils.const import ALLOTMENT_URL, API_URL, CATEGORIES, PDF_URL
 
 
 def scraped_stocks(category_id: int):
@@ -30,36 +30,23 @@ def scraped_stocks(category_id: int):
         "StockSymbol": ""
     }
 
-    headers = {
-        'Pragma': 'no-cache',
-        'Origin': ORIGIN,
-        'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json, text/javascript, */*; q=0.01',
-        'Cache-Control': 'no-cache',
-        'X-Requested-With': 'XMLHttpRequest',
-        'Connection': 'keep-alive',
-        'Referer': REFERER,
-        'DNT': '1',
-    }
     try:
-        response = requests.post(API_URL, headers=headers, json=json)
+        response = requests.post(API_URL, json=json)
         return response.json()['d']
     except requests.exceptions.ConnectionError as e:
         return print("Looks like the stock API did an oopsie:\n", e)
 
-def alloted_stocks() -> List[Dict]:
+
+def announcements():
     try:
         response = requests.get(ALLOTMENT_URL)
-        return response
+        return response.content
     except requests.exceptions.ConnectionError as e:
         return print("Looks like the stock API did an oopsie:\n", e)
 
 
 def latest_stocks() -> List[Dict]:
-    from utils import extract_units, get_sharetype
+    from utils.helpers import extract_units, get_sharetype
     stocks = []
     for category_id in list(CATEGORIES.keys()):
         for stock in scraped_stocks(category_id):

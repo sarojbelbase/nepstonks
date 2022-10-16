@@ -6,7 +6,7 @@ from sqlalchemy import (Boolean, Column, Date, DateTime, ForeignKey, Integer,
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session, relationship
 
-from const import DATABASE_URI
+from utils.const import DATABASE_URI
 
 sqlite_db = 'sqlite:///' + path.join(DATABASE_URI)
 connect_args = {'check_same_thread': False}
@@ -46,6 +46,19 @@ class Telegram(BaseModel):
 
     def __repr__(self):
         return f'Message: {self.message_id} Stock: {self.stock_id}'
+
+
+class Announcement(BaseModel):
+    __tablename__ = 'announcement'
+    id = Column(Integer(), primary_key=True)
+    message_id = Column(Integer(), default=0)
+    content = Column(String(), nullable=False)
+    published_date = Column(Date(), nullable=True)
+    is_published = Column(Boolean(), default=False)
+    announced_at = Column(DateTime(), default=datetime.utcnow)
+
+    def __repr__(self):
+        return self.content
 
 
 if __name__ == '__main__':
