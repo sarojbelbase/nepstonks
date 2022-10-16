@@ -110,7 +110,7 @@ def flush_the_image() -> bool:
 
 
 def get_sharetype(stock_id: int, raw_info: str) -> Optional[str]:
-    local = "[Ll]ocal[s]?"
+    local = "[Ll]ocals?"
     if CATEGORIES.get(stock_id):
         if bool(re.search(local, raw_info)):
             return f'Local {CATEGORIES.get(stock_id)}'
