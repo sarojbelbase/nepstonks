@@ -6,7 +6,7 @@ from sqlalchemy import (Boolean, Column, Date, DateTime, ForeignKey, Integer,
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session, relationship
 
-from const import DATABASE_URI
+from utils.const import DATABASE_URI
 
 sqlite_db = 'sqlite:///' + path.join(DATABASE_URI)
 connect_args = {'check_same_thread': False}
@@ -31,8 +31,10 @@ class Stock(BaseModel):
     units = Column(String(), nullable=True)
     is_published = Column(Boolean(), default=False)
     stock_added_at = Column(DateTime(), default=datetime.utcnow)
-    chat = relationship('Telegram', backref='stock', uselist=False,
-                        lazy=True, cascade='all, delete-orphan')
+    chat = relationship(
+        'Telegram', backref='stock', uselist=False,
+        lazy=True, cascade='all, delete-orphan'
+    )
 
     def __repr__(self):
         return f'{self.company_name}({self.stock_type})'
@@ -48,7 +50,18 @@ class Telegram(BaseModel):
         return f'Message: {self.message_id} Stock: {self.stock_id}'
 
 
-if __name__ == '__main__':
-    # To create a new database with models specified above if db doesn't exist
-    if not path.isfile(DATABASE_URI):
-        BaseModel.metadata.create_all(engine)
+class Announcement(BaseModel):
+    __tablename__ = 'announcement'
+    id = Column(Integer(), primary_key=True)
+    content = Column(String(), nullable=False)
+    content_url = Column(String(), nullable=True)
+    published_date = Column(Date(), nullable=True)
+    is_published = Column(Boolean(), default=False)
+    scraped_at = Column(DateTime(), default=datetime.utcnow)
+
+    def __repr__(self):
+        return self.content
+
+
+# Map the models to the database as tables
+BaseModel.metadata.create_all(engine, checkfirst=True)

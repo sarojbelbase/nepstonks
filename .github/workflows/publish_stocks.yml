@@ -24,17 +24,16 @@ jobs:
 
             - name: Add new stocks & publish to telegram channel
               env:
-                  CHANNEL: ${{ secrets.CHANNEL }}
+                  ALLOTMENT_URL: ${{ secrets.ALLOTMENT_URL }}
                   BOT_USERNAME: ${{ secrets.BOT_USERNAME }}
-                  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
                   NEWS_URL_BM: ${{ secrets.NEWS_URL_BM }}
                   NEWS_URL_ML: ${{ secrets.NEWS_URL_ML }}
-                  ORIGIN: ${{ secrets.ORIGIN }}
-                  REFERER: ${{ secrets.REFERER }}
+                  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+                  CHANNEL: ${{ secrets.CHANNEL }}
                   API_URL: ${{ secrets.API_URL }}
                   PDF_URL: ${{ secrets.PDF_URL }}
               run: |
-                  python stocks.py
+                  python run.py
 
             - name: Commit only if new stocks have been added
               run: |
