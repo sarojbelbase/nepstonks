@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from PIL import Image, ImageDraw, ImageFont
 
 from insert import Stock
@@ -98,7 +100,8 @@ def generate(issue: Stock):
         align="center"
     )
 
-    image_name = f'{issue.scrip}.PNG'
+    file_name = str(uuid4())[:8]
+    image_name = f'{file_name}.PNG'
     the_image = current_dir / image_name
     template.save(image_name)
     return open(the_image, 'rb')
