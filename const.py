@@ -11,10 +11,8 @@ CATEGORIES = {
     5: 'Right Share',
     7: 'Mutual Fund',
     8: 'Debenture'}
-ORIGIN = environ['ORIGIN']
 API_URL = environ['API_URL']
 PDF_URL = environ['PDF_URL']
-REFERER = environ['REFERER']
 CHANNEL = environ['CHANNEL']
 BOT_TOKEN = environ['BOT_TOKEN']
 BOT_USERNAME = environ['BOT_USERNAME']
