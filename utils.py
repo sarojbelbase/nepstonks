@@ -1,10 +1,13 @@
 import re
 from datetime import date
+from os import path, remove
 from typing import Dict, List, Optional
 
 import requests
 from nepali_datetime import date as nepdate
 
+import store
+from const import CATEGORIES, current_dir
 from models import Stock
 
 
@@ -97,12 +100,9 @@ def break_this(given_text: str) -> str:
     return ' '.join(text)
 
 
-def flush_the_image(issue: Stock) -> bool:
-    from os import path, remove
-
-    from const import current_dir
-    picture = current_dir / f'{issue.scrip}.PNG'
-    if path.exists(picture):
+def flush_the_image() -> bool:
+    picture = current_dir / store.image_name
+    if store.image_name and path.exists(picture):
         remove(picture)
         return True
     else:
@@ -110,7 +110,6 @@ def flush_the_image(issue: Stock) -> bool:
 
 
 def get_sharetype(stock_id: int, raw_info: str) -> Optional[str]:
-    from const import CATEGORIES
     local = "[Ll]ocal[s]?"
     if CATEGORIES.get(stock_id):
         if bool(re.search(local, raw_info)):

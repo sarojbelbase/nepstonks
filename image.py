@@ -4,6 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from insert import Stock
 from utils import break_this, is_rightshare, parse_date, parse_miti
+import store
 
 
 def generate(issue: Stock):
@@ -102,6 +103,7 @@ def generate(issue: Stock):
 
     file_name = str(uuid4())[:8]
     image_name = f'{file_name}.PNG'
+    store.image_name = image_name
     the_image = current_dir / image_name
     template.save(image_name)
     return open(the_image, 'rb')

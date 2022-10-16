@@ -59,7 +59,7 @@ def reminding_content(stock: Stock) -> str:
 def publish_stock(the_stock: Stock) -> bool:
     if send_this_stock(the_stock):
         mark_as_published(the_stock)
-        flush_the_image(the_stock)
+        flush_the_image()
         return True
     return False
 
