@@ -1,4 +1,4 @@
-name: check_stocks
+name: run_workflow
 
 on:
     schedule:
