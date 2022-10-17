@@ -10,24 +10,23 @@ jobs:
     build:
         runs-on: ubuntu-20.04
         steps:
-            - uses: actions/checkout@v2
+            - name: Checks-out this current repository
+            - uses: actions/checkout@v3
 
-            - name: Set up python
-              uses: actions/setup-python@v2
+            - name: Setup a specific version of python 
+              uses: actions/setup-python@v4
               with:
-                  python-version: 3.7
+                  python-version: 3.8
 
             - name: Install dependencies
               run: |
                   python -m pip install --upgrade pip
                   pip install -r requirements.txt
 
-            - name: Add new stocks & publish to telegram channel
+            - name: Add new stocks or announcements and publish to telegram channel
               env:
                   ALLOTMENT_URL: ${{ secrets.ALLOTMENT_URL }}
                   BOT_USERNAME: ${{ secrets.BOT_USERNAME }}
-                  NEWS_URL_BM: ${{ secrets.NEWS_URL_BM }}
-                  NEWS_URL_ML: ${{ secrets.NEWS_URL_ML }}
                   BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
                   CHANNEL: ${{ secrets.CHANNEL }}
                   API_URL: ${{ secrets.API_URL }}
