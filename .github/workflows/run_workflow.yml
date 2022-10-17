@@ -13,7 +13,7 @@ jobs:
             - name: Checks-out this current repository
             - uses: actions/checkout@v3
 
-            - name: Setup a specific version of python 
+            - name: Setup a specific version of python
               uses: actions/setup-python@v4
               with:
                   python-version: 3.8
