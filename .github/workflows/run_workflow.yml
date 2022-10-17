@@ -11,7 +11,7 @@ jobs:
         runs-on: ubuntu-20.04
         steps:
             - name: Checks-out this current repository
-            - uses: actions/checkout@v3
+              uses: actions/checkout@v3
 
             - name: Setup a specific version of python
               uses: actions/setup-python@v4
