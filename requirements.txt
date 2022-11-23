@@ -7,7 +7,7 @@ idna==2.10
 importlib-metadata==3.10.0
 lxml==4.9.1
 nepali-datetime==1.0.6
-Pillow==9.0.1
+Pillow==9.3.0
 pycodestyle==2.7.0
 python-dateutil==2.8.1
 python-dotenv==0.17.0
