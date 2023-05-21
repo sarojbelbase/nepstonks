@@ -7,16 +7,7 @@ current_dir = Path(__file__).parent.parent.resolve()
 
 load_dotenv(find_dotenv())
 
-CATEGORIES = {
-    2: 'IPO',
-    3: 'FPO',
-    5: 'Right Share',
-    7: 'Mutual Fund',
-    8: 'Debenture'
-}
-
 API_URL = environ['API_URL']
-PDF_URL = environ['PDF_URL']
 CHANNEL = environ['CHANNEL']
 BOT_TOKEN = environ['BOT_TOKEN']
 BOT_USERNAME = environ['BOT_USERNAME']

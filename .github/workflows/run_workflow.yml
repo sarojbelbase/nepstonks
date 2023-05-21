@@ -30,7 +30,6 @@ jobs:
                   BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
                   CHANNEL: ${{ secrets.CHANNEL }}
                   API_URL: ${{ secrets.API_URL }}
-                  PDF_URL: ${{ secrets.PDF_URL }}
               run: |
                   python run.py
 

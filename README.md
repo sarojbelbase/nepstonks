@@ -61,7 +61,6 @@ A channel that publishes latest news & upcoming stocks related to `IPOs`, `FPOs`
 - `BOT_TOKEN` = 'Bot Token generated from @botfather on telegram'
 - `BOT_USERNAME` = 'Bot username generated from @botfather on telegram'
 - `API_URL` = 'URL from where stocks are fetched (POST REQUEST)'
-- `PDF_URL` = 'URL that stores the uploaded PDF'
 
 ### Run & Setups
 
