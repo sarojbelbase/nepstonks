@@ -1,64 +1,48 @@
-from json import loads
-
 import requests
 from dateutil.parser import parse
-from utils import (ALLOTMENT_URL, API_URL, CATEGORIES, PDF_URL, extract_units,
-                   get_sharetype, html_scraper, store)
+
+from utils import ALLOTMENT_URL, API_URL, html_scraper, store
 
 
 def scrape_stocks():
-    """
-    gets stocks in a raw form within the list of categories as defined in utils/const.py
 
-    Example:
-            category_id : 2 -> IPO 
-            category_id : 3 -> FPO
-            category_id : 5 -> Right Share
-            category_id : 7 -> Mutual Fund
-            category_id : 8 -> Debenture
+    params = {
+        "pageNo": 1,
+        "itemsPerPage": 10,
+        "pagePerDisplay": 5
+    }
 
-    Stores:
-        List[Dict]: stores the stocks in dict form in store.new_stocks
+    try:
+        response = requests.get(API_URL, params=params)
+        json_result = response.json()
+        stocks = json_result.get("result", {}).get("data", [])
 
-    """
+    # If the API is down break the loop and return the stocks
+    except requests.exceptions.ConnectionError as e:
+        print("Looks like the stock API did an oopsie:\n", e)
 
-    for category_id in list(CATEGORIES.keys()):
+    # Append stocks to the list of stocks
 
-        payload = {
-            "offset": "1",
-            "limit": "10",
-            "categoryID": category_id,
-            "portalID": "1",
-            "cultureCode": "en-US",
-            "StockSymbol": ""
-        }
-
-        try:
-            response = requests.post(API_URL, json=payload)
-            stocks = response.json()['d']
-
-        # If the API is down break the loop and return the stocks
-        except requests.exceptions.ConnectionError as e:
-            print("Looks like the stock API did an oopsie:\n", e)
-            break
-
-        # Append stocks to the list of stocks
-        for stock in stocks:
-            store.new_stocks.append(
-                {
-                    'ratio': stock["Ratio"],
-                    'scrip': stock['StockSymbol'],
-                    'stock_id': stock['CategoryID'],
-                    'issued_by': stock['IssueManager'],
-                    'company_name': stock['CompanyName'],
-                    'investment_id': stock['InvestmentID'],
-                    'units': extract_units(stock['ShareType']),
-                    'pdf_url': PDF_URL + stock['DescriptionPdf'],
-                    'closing_date': parse(stock['EndDateString']).date(),
-                    'opening_date': parse(stock['StartDateString']).date(),
-                    'stock_type':  get_sharetype(category_id, stock['ShareType'])
-                }
-            )
+    for stock in stocks:
+        store.new_stocks.append(
+            {
+                'id': stock['ipoId'],
+                'company_name': stock['companyName'],
+                'stock_symbol': stock['stockSymbol'],
+                'share_registrar': stock['shareRegistrar'],
+                'sector_name': stock['sectorName'],
+                'share_type': stock['shareType'],
+                'price_per_unit': stock['pricePerUnit'],
+                'rating': stock['rating'],
+                'units': stock['units'],
+                'min_units': stock['minUnits'],
+                'max_units': stock['maxUnits'],
+                'total_amount': stock['totalAmount'],
+                'opening_date': parse(stock['openingDateAD']).date(),
+                'closing_date': parse(stock['closingDateAD']).date(),
+                'fiscal_year': stock['fiscalYearAD']
+            }
+        )
 
 
 def scrape_announcements():
