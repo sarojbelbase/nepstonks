@@ -17,18 +17,22 @@ BaseModel = declarative_base()
 
 class Stock(BaseModel):
     __tablename__ = 'stock'
-    id = Column(Integer(), primary_key=True)
-    company_name = Column(String(), nullable=False)
-    closing_date = Column(Date(), nullable=False)
-    investment_id = Column(Integer(), nullable=False)
-    issued_by = Column(String(), nullable=False)
-    pdf_url = Column(String(), nullable=True)
-    ratio = Column(String(), nullable=True)
-    opening_date = Column(Date(), nullable=False)
-    stock_id = Column(Integer(), nullable=False)
-    scrip = Column(String(), nullable=False)
-    stock_type = Column(String(), nullable=False)
-    units = Column(String(), nullable=True)
+
+    id = Column(Integer, primary_key=True)
+    company_name = Column(String, nullable=False)
+    stock_symbol = Column(String, nullable=False)
+    share_registrar = Column(String, nullable=True)
+    sector_name = Column(String, nullable=True)
+    share_type = Column(String, nullable=True)
+    price_per_unit = Column(Integer, nullable=True)
+    rating = Column(String, nullable=True)
+    units = Column(Integer, nullable=True)
+    min_units = Column(Integer, nullable=True)
+    max_units = Column(Integer, nullable=True)
+    total_amount = Column(Integer, nullable=True)
+    opening_date = Column(Date, nullable=True)
+    closing_date = Column(Date, nullable=True)
+    fiscal_year = Column(String, nullable=True)
     is_published = Column(Boolean(), default=False)
     stock_added_at = Column(DateTime(), default=datetime.utcnow)
     chat = relationship(
@@ -37,7 +41,7 @@ class Stock(BaseModel):
     )
 
     def __repr__(self):
-        return f'{self.company_name}({self.stock_type})'
+        return f'{self.company_name} announced {self.stock_symbol} on {self.opening_date}'
 
 
 class Telegram(BaseModel):
