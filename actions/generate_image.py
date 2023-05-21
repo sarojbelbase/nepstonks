@@ -1,7 +1,8 @@
 from uuid import uuid4
 
 from PIL import Image, ImageDraw, ImageFont
-from utils import (Stock, break_this, is_rightshare, parse_date, parse_miti,
+
+from utils import (Stock, break_this, humanize_number, parse_date, parse_miti,
                    store)
 
 
@@ -27,7 +28,7 @@ def generate(issue: Stock):
     draw = ImageDraw.Draw(template)
 
     drow(
-        text=f"New Upcoming {issue.stock_type} Alert!",
+        text="New Upcoming IPO Alert!",
         size=56,
         fill='#fea538',
         y=46,
@@ -82,7 +83,7 @@ def generate(issue: Stock):
     )
 
     drow(
-        text=is_rightshare(issue),
+        text=f"Total Units: {humanize_number(issue.units)}",
         size=42,
         fill='#141414',
         y=592,
@@ -91,7 +92,7 @@ def generate(issue: Stock):
     )
 
     drow(
-        text=f"Scrip: {issue.scrip} · Issued By {issue.issued_by}",
+        text=f"Scrip: {issue.stock_symbol} · Issued By {issue.share_registrar}",
         size=38,
         fill='#ffffff',
         y=864,

@@ -2,9 +2,9 @@ from datetime import date
 from typing import List
 
 from sqlalchemy.orm import Query
-from utils import Announcement, Stock, Telegram, session, store
 
 from actions.scrape import scrape_announcements, scrape_stocks
+from utils import Announcement, Stock, Telegram, enums, session, store
 
 # Query objects from the database
 StockTable = Query(Stock, session)
@@ -15,28 +15,34 @@ AnnouncementTable = Query(Announcement, session)
 def add_stocks() -> None:
 
     # First of all, scrape new stocks
-    print("Scraping Stocks...")
+    print("Scraping stocks from the API")
     scrape_stocks()
+    print(f"Scraped {len(store.new_stocks)} stocks")
+    added_stocks = 0
 
     # Check if there are any new stocks else return None
     if not store.new_stocks:
         return
 
-    # Add new stocks to the database
     for stock in store.new_stocks:
 
+        # Only ordinary shares are added to the database
+        if stock.get('share_type') != enums.ShareType.ordinary.value:
+            continue
+
+        # Check if they are already in the database
         the_stock = StockTable\
-            .filter(Stock.investment_id == stock['investment_id'])\
+            .filter(Stock.id == stock['id'])\
             .first()
 
         # Check if the stock is already in the database
         if not the_stock:
             this_stock = Stock(**stock)
             session.add(this_stock)
+            added_stocks += 1
 
     session.commit()
-
-    print(f"Added {len(store.new_stocks)} Stocks")
+    print(f"Added {added_stocks} stocks to the database")
 
 
 def add_announcements() -> None:
