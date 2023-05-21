@@ -46,6 +46,7 @@ A channel that publishes latest news & upcoming stocks related to `IPOs`, `FPOs`
 
 ### Changelogs
 
+- `2023, May 21` Updated the API URL and models for fetching upcoming stocks
 - `2022, October 16` Added General Public Share Allotment Announcements
 - `2021, June 08` Remove share market news
 - `2021, May 06` Support For Local IPOs
