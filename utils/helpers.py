@@ -1,27 +1,19 @@
 import re
 from datetime import date
 from os import path, remove
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 import requests
 from bs4 import BeautifulSoup as bs
 from nepali_datetime import date as nepdate
 
 import utils.store as store
-from utils.const import CATEGORIES, current_dir
-from utils.models import Stock, session
+from utils.const import current_dir
+from utils.models import session
 
 
 def replace_this(substring: str, from_given_text: str) -> str:
     return re.sub(substring, '', from_given_text).strip()
-
-
-def extract_units(sharetype: str) -> Optional[str]:
-    index = sharetype.find(':')
-    if index != -1:
-        # get only kittas/units and slice out the "share_type"
-        return sharetype[index+1:].strip()
-    return None
 
 
 def mark_as_published(given_item) -> None:
@@ -36,16 +28,6 @@ def parse_miti(given_date: date) -> str:
 
 def parse_date(given_date: date) -> str:
     return given_date.strftime('%B %d')
-
-
-def is_rightshare(stock: Stock) -> str:
-    # if its right share it publishes both units & ratio else publish units only
-    units = f"Total Units: {stock.units}"
-    ratio = f"Ratio: {stock.ratio}"
-    if stock.ratio:
-        return f"{units}, {ratio}"
-    else:
-        return units
 
 
 def media_url_resolves(media_url: str) -> bool:
@@ -109,18 +91,14 @@ def flush_the_image() -> bool:
         return False
 
 
-def get_sharetype(stock_id: int, raw_info: str) -> Optional[str]:
-    local = "[Ll]ocals?"
-    if CATEGORIES.get(stock_id):
-        if bool(re.search(local, raw_info)):
-            return f'Local {CATEGORIES.get(stock_id)}'
-        return CATEGORIES.get(stock_id)
-    return None
-
-
 def hashtag(given_str: str) -> str:
-    # remove spaces between two words
-    return f"#{''.join(given_str.split())}"
+    # Adds hashtag to the given string ex: "hello world" -> "#HelloWorld"
+    return f"#{''.join([word.capitalize() for word in given_str.split()])}"
+
+
+def humanize_number(given_number: int) -> str:
+    # converts the given number to a human readable format ex: 100000 -> 1,00,000
+    return f"{given_number:,}"
 
 
 def html_scraper(url):

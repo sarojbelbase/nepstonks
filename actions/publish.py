@@ -1,10 +1,9 @@
 from typing import Optional
 
 from typing_extensions import Literal
-from utils import (
-    CHANNEL, TELEGRAM_URL, Announcement, Stock, flush_the_image,
-    handle_response, is_rightshare, mark_as_published
-)
+
+from utils import (CHANNEL, TELEGRAM_URL, Announcement, Stock, flush_the_image,
+                   handle_response, humanize_number, mark_as_published)
 
 
 def send_this_stock(stock: Stock) -> Optional[Literal[True]]:
@@ -52,9 +51,9 @@ def pin_message(stock: Stock) -> Optional[Literal[True]]:
 
 def stock_content(stock: Stock) -> str:
     from utils.helpers import hashtag
-    without_pdf = f"<strong>#Stock {hashtag(stock.stock_type)} #{stock.scrip}</strong>"
-    with_pdf = f'<strong><a href="{stock.pdf_url}">View PDF</a></strong>'
-    return f'{without_pdf} · {with_pdf}' if stock.pdf_url else without_pdf
+    first_line = f"<strong>#Stock #IPO #{stock.stock_symbol}</strong>"
+    second_line = f"<strong>{hashtag(stock.sector_name)}</strong>"
+    return f'{first_line} · {second_line}'
 
 
 def announcement_content(announcement: Announcement) -> str:
@@ -69,9 +68,9 @@ def announcement_content(announcement: Announcement) -> str:
 def reminding_content(stock: Stock) -> str:
     return f"""<strong>Reminder!</strong>
 
-<strong>Don't forget to apply for this {stock.stock_type} today.😊</strong>
+<strong>Don't forget to apply for this IPO today.😊</strong>
 <strong>{stock.company_name}</strong>
-<strong>{is_rightshare(stock)}</strong>
+<strong>{f"Total Units: {humanize_number(stock.units)}"}</strong>
 """
 
 
