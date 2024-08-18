@@ -1,10 +1,10 @@
 <p align="center">
 <img src="media/nepalstonks.png" width="35%" height="auto"><br>
 <strong>
-A telegram channel that informs with the latest share market news, upcoming stocks, issues, and investment opportunities that are announced inside Nepal.
+A telegram channel that provides information on the latest share market news, upcoming stocks, issues, and investment opportunities announced inside Nepal.
 <br>
 <!-- SUBSCRIBERS COUNT STARTED -->
-<a target="_blank" href="https://t.me/nepstonks"><img alt="Total Subscribers Count" src="https://img.shields.io/badge/dynamic/json?style=for-the-badge&logo=telegram&label=subscribers&query=members&url=https%3A%2F%2Fapi.pever.tech%2Ftginfo%3Fusername%3Dnepstonks&color=141414&labelColor=141414"></a>
+<a target="_blank" href="https://t.me/nepstonks"><img alt="Total Subscribers Count" src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fnepstonks&style=for-the-badge&logo=telegram&label=total%20subscribers&labelColor=141414&color=141414"></a>
 <!-- SUBSCRIBERS COUNT ENDED -->
 
 </strong>
@@ -19,13 +19,13 @@ A telegram channel that informs with the latest share market news, upcoming stoc
 
 ### Overview
 
-A channel that publishes latest news & upcoming stocks related to `IPOs`, `FPOs`, `Mutual Funds`, `Right Shares` & `Debentures` and reminds to apply them. It is backed by a `telegram-bot` that does all the heavy lifting i.e. from scraping share related news from the reputed websites to updating with the latest upcoming issues. The upcoming stocks are fetched from an API and get published to this telegram channel, whereas for articles, they are scraped from multiple sources. The most important works are carried by github actions which run these workflows every day at an appointed time frame to check if there are any new issues or articles available, where I don't need to worry about deploying and cron jobs. As an automation-loving guy, I just saved myself many clicks of `sharesansar`, `bizmandu`, `merolagani` or any other similar portals we get these updates from.
+A channel that publishes the latest news & upcoming stocks related to `IPOs`, `FPOs`, `Mutual Funds`, `Right Shares` & `Debentures` and reminds us to apply them. It is backed by a `telegram-bot` that does all the heavy lifting i.e. from scraping share-related news from the reputed websites to updating with the latest upcoming issues. The upcoming stocks are fetched from an API and published to this telegram channel, whereas articles are scraped from multiple sources. The most important works are carried out by github actions which run these workflows every day at an appointed time frame to check if there are any new issues or articles available, where I don't need to worry about deploying and cron jobs. As an automation-loving guy, I just saved myself many clicks of `sharesansar`, `bizmandu`, `merolagani`, or any other similar portals we get these updates from.
 
 ### Features
 
 - Informs about upcoming issues
-- Announces when share are alloted to general public
-- Share market and stock related news from reputed sites
+- Announces when shares are allotted to the general public
+- Share market and stock-related news from reputed sites
 - Reminds to apply for stocks beforehand
 
 ### Prerequisites
@@ -53,7 +53,7 @@ A channel that publishes latest news & upcoming stocks related to `IPOs`, `FPOs`
 - `2021, May 02` Send stocks in Images
 - `2021, April 28` Remove merolagani updates
 - `2021, April 26` Add Reminder Notification for stocks
-- `2021, April 21` Add latest share market news
+- `2021, April 21` Add the latest share market news
 
 ### Environment Variables
 
