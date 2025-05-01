@@ -1,41 +1,41 @@
 name: run_workflow
 
 on:
-    schedule:
-        # Runs everyday at:
-        # 12:15 AM UTC (GMT0:00) -> 06:00 AM Nepal Time (GMT+5:45)
-        - cron: "15 00 * * *"
+  schedule:
+    # Runs everyday at:
+    # 12:15 AM UTC (GMT0:00) -> 06:00 AM Nepal Time (GMT+5:45)
+    - cron: "15 00 * * *"
 
 jobs:
-    build:
-        runs-on: ubuntu-24.04
-        steps:
-            - name: Checks-out this current repository
-              uses: actions/checkout@v3
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
 
-            - name: Setup a specific version of python
-              uses: actions/setup-python@v4
-              with:
-                  python-version: 3.8
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
 
-            - name: Install dependencies
-              run: |
-                  python -m pip install --upgrade pip
-                  pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-            - name: Add new stocks or announcements and publish to telegram channel
-              env:
-                  ALLOTMENT_URL: ${{ secrets.ALLOTMENT_URL }}
-                  BOT_USERNAME: ${{ secrets.BOT_USERNAME }}
-                  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-                  CHANNEL: ${{ secrets.CHANNEL }}
-                  API_URL: ${{ secrets.API_URL }}
-              run: |
-                  python run.py
+      - name: Execute bot script
+        env:
+          ALLOTMENT_URL: ${{ secrets.ALLOTMENT_URL }}
+          BOT_USERNAME: ${{ secrets.BOT_USERNAME }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHANNEL: ${{ secrets.CHANNEL }}
+          API_URL: ${{ secrets.API_URL }}
+        run: |
+          python run.py
 
-            - name: Commit only if new stocks have been added
-              run: |
-                  git config --global user.email "stonksbot@example.com"
-                  git config --global user.name "stonksbot"
-                  git diff --quiet || (git add nepstonks.db && git commit -m "🌱 db: add new stocks")
-                  git push origin HEAD:main
+      - name: Commit changes if necessary
+        run: |
+          git config --global user.email "stonksbot@example.com"
+          git config --global user.name "stonksbot"
+          git diff --quiet || (git add nepstonks.db && git commit -m "🌱 db: add new stocks")
+          git push origin HEAD:main
